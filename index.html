@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta name="theme-color" content="#111827" />
+  <title>EA Flashcards</title>
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="app-shell">
+    <section id="profileScreen" class="screen active">
+      <div class="hero">
+        <div class="eyebrow">EA Exam Prep</div>
+        <h1>Who’s studying?</h1>
+        <p class="muted">Progress is stored separately on this device.</p>
+        <div class="profile-grid">
+          <button class="profile-button" data-profile="J">J</button>
+          <button class="profile-button" data-profile="A">A</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="deckScreen" class="screen">
+      <header class="topbar">
+        <div>
+          <div class="eyebrow">Profile <span id="profileBadge">J</span></div>
+          <h2>Choose a deck</h2>
+        </div>
+        <button id="switchProfileBtn" class="ghost-button">Switch</button>
+      </header>
+      <div id="deckGrid" class="deck-grid"></div>
+    </section>
+
+    <section id="studyScreen" class="screen">
+      <header class="topbar">
+        <div>
+          <div class="eyebrow" id="studyDeckLabel">Video 1</div>
+          <h2 id="studyDeckTitle">Deck</h2>
+        </div>
+        <button id="backToDecksBtn" class="ghost-button">Decks</button>
+      </header>
+
+      <div class="controls">
+        <label>
+          Mode
+          <select id="modeSelect">
+            <option value="ordered">Ordered</option>
+            <option value="random">Random</option>
+          </select>
+        </label>
+        <label>
+          Study
+          <select id="filterSelect">
+            <option value="active">Active only</option>
+            <option value="all">All cards</option>
+            <option value="weak">Weak cards</option>
+            <option value="mastered">Mastered</option>
+          </select>
+        </label>
+      </div>
+
+      <div class="stats-row">
+        <span id="positionStat">0 / 0</span>
+        <span id="masteredStat">Mastered 0</span>
+        <span id="weakStat">Weak 0</span>
+      </div>
+
+      <button id="flashcard" class="flashcard" aria-label="Flip flashcard">
+        <div class="card-inner">
+          <div class="card-face card-front">
+            <div class="card-kicker">Question</div>
+            <div id="questionText" class="card-text">No cards in this deck yet.</div>
+            <div class="tap-hint">Tap to reveal answer</div>
+          </div>
+          <div class="card-face card-back">
+            <div class="card-kicker">Answer</div>
+            <div id="answerText" class="card-text"></div>
+            <div class="tap-hint">Tap to see question</div>
+          </div>
+        </div>
+      </button>
+
+      <div class="rating-row">
+        <button id="wrongBtn" class="rate-button wrong">Wrong</button>
+        <button id="correctBtn" class="rate-button correct">Correct</button>
+      </div>
+
+      <div class="nav-row">
+        <button id="prevBtn" class="secondary-button">Previous</button>
+        <button id="nextBtn" class="primary-button">Next</button>
+      </div>
+
+      <div class="study-actions">
+        <button id="resetCardBtn" class="ghost-button">Reset card progress</button>
+        <button id="resetDeckBtn" class="ghost-button danger-text">Reset deck progress</button>
+      </div>
+    </section>
+  </main>
+
+  <script src="data/decks.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
