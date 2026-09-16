@@ -21,7 +21,6 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-          cache: 'pip'
 
       - name: Install transcription tools
         run: |
@@ -78,21 +77,14 @@ jobs:
               text = seg.text.strip()
               if not text:
                   continue
-              row = {
-                  'start': round(seg.start, 3),
-                  'end': round(seg.end, 3),
-                  'text': text,
-              }
+              row = {'start': round(seg.start, 3), 'end': round(seg.end, 3), 'text': text}
               rows.append(row)
               text_lines.append(text)
               total = int(seg.start)
               h, rem = divmod(total, 3600)
               m, s = divmod(rem, 60)
               stamp = f'{h}:{m:02d}:{s:02d}' if h else f'{m}:{s:02d}'
-              md_lines.append(f'**{stamp}**')
-              md_lines.append('')
-              md_lines.append(text)
-              md_lines.append('')
+              md_lines += [f'**{stamp}**', '', text, '']
 
           with open('video2_transcript.txt', 'w', encoding='utf-8') as f:
               f.write('\n'.join(text_lines) + '\n')
