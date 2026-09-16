@@ -1,4 +1,4 @@
-const CACHE = "ea-flashcards-v3";
+const CACHE = "ea-flashcards-v6";
 const ASSETS = ["./","./index.html","./styles.css","./app.js","./data/decks.js","./manifest.webmanifest"];
 
 self.addEventListener("install", event => {

@@ -40,3 +40,14 @@ Each card looks like:
 ```
 
 Video 1 contains the full 608-card deck based on the substantive EA/tax material taught in the 2026 Part 1 Video 1 transcript.
+
+## Current deck counts
+
+- Video 1: 608 cards
+- Video 2: 0 cards (intentionally blank)
+- Video 3: 512 cards
+- Video 4: 449 cards
+- Video 5: 350 cards
+- Video 6: 199 cards
+- Video 7: 320 cards
+
