@@ -39,5 +39,4 @@ Each card looks like:
 { id: "v1-001", q: "Question here?", a: "Answer here." }
 ```
 
-Video 1 currently contains only a small test sample so you can confirm the app works.
-The full 608-card Video 1 deck can be dropped into this same file next.
+Video 1 contains the full 608-card deck based on the substantive EA/tax material taught in the 2026 Part 1 Video 1 transcript.

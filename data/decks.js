@@ -6,113 +6,113 @@ const EA_DECKS = [
     "cards": [
       {
         "id": "v1-001",
-        "q": "What does Part 1 of the EA exam cover?",
-        "a": "Individual taxation."
+        "q": "Can gross income include income received as money?",
+        "a": "Yes, if it is not exempt from tax."
       },
       {
         "id": "v1-002",
-        "q": "How many videos are in Tom Norton's Part 1 course?",
-        "a": "Seven."
+        "q": "Can gross income include income received as goods?",
+        "a": "Yes, if it is not exempt from tax."
       },
       {
         "id": "v1-003",
-        "q": "What is Part 1 Video 1 about?",
-        "a": "Overview and getting started."
+        "q": "Can gross income include income received as property?",
+        "a": "Yes, if it is not exempt from tax."
       },
       {
         "id": "v1-004",
-        "q": "What is Part 1 Video 2 about?",
-        "a": "Income."
+        "q": "Can gross income include income received as services?",
+        "a": "Yes, if it is not exempt from tax."
       },
       {
         "id": "v1-005",
-        "q": "What is Part 1 Video 3 about?",
-        "a": "Capital gains."
+        "q": "Can gross income include income from sources outside the United States?",
+        "a": "Yes."
       },
       {
         "id": "v1-006",
-        "q": "What is Part 1 Video 4 about?",
-        "a": "Adjustments and deductions from income."
+        "q": "How are taxable scholarships and grants classified for these filing rules?",
+        "a": "As earned income."
       },
       {
         "id": "v1-007",
-        "q": "What is Part 1 Video 5 about?",
-        "a": "Calculating tax and tax credits."
+        "q": "Is taxable interest earned or unearned income?",
+        "a": "Unearned income."
       },
       {
         "id": "v1-008",
-        "q": "What is Part 1 Video 6 about?",
-        "a": "Retirement accounts and Social Security."
+        "q": "Are dividends earned or unearned income?",
+        "a": "Unearned income."
       },
       {
         "id": "v1-009",
-        "q": "What is Part 1 Video 7 about?",
-        "a": "Specialized returns and topics."
+        "q": "Are capital gains earned or unearned income?",
+        "a": "Unearned income."
       },
       {
         "id": "v1-010",
-        "q": "What is the official name of the EA exam?",
-        "a": "The Special Enrollment Examination (SEE)."
+        "q": "Is unemployment compensation earned or unearned income?",
+        "a": "Unearned income."
       },
       {
         "id": "v1-011",
-        "q": "What tax law is tested on the 2026 EA exam?",
-        "a": "2025 tax law."
+        "q": "Is taxable Social Security earned or unearned income?",
+        "a": "Unearned income."
       },
       {
         "id": "v1-012",
-        "q": "As of what date is the tax law frozen for the 2026 EA exam?",
-        "a": "December 31, 2025."
+        "q": "Are pensions earned or unearned income in the year received?",
+        "a": "Unearned income."
       },
       {
         "id": "v1-013",
-        "q": "What is the testing period for the 2026 EA exam?",
-        "a": "May 1, 2026 through February 28, 2027."
+        "q": "Are annuities earned or unearned income?",
+        "a": "Unearned income."
       },
       {
         "id": "v1-014",
-        "q": "Are EA exams taken in January or February 2027 still the 2026 exam?",
-        "a": "Yes. They are still based on 2025 tax law."
+        "q": "Are distributions of unearned income from trusts treated as earned or unearned income?",
+        "a": "Unearned income."
       },
       {
         "id": "v1-015",
-        "q": "What major tax legislation passed in 2025 does Tom mention?",
-        "a": "The One Big Beautiful Bill Act (OBBBA)."
+        "q": "How does the $23,625 Head of Household filing threshold compare with the Single and MFJ thresholds?",
+        "a": "It is exactly halfway between the Single and Married Filing Jointly thresholds."
       },
       {
         "id": "v1-016",
-        "q": "Which OBBBA provisions are relevant to the 2026 EA exam?",
-        "a": "Provisions effective for 2025."
+        "q": "Why will virtually everyone filing Married Filing Separately need to file a 2025 return?",
+        "a": "Because the MFS filing threshold is only $5 of gross income."
       },
       {
         "id": "v1-017",
-        "q": "Are OBBBA provisions that do not take effect until 2026 or later generally tested on the 2026 EA exam?",
-        "a": "No."
+        "q": "For most tax purposes, how is a Qualifying Surviving Spouse treated?",
+        "a": "Like a taxpayer filing Married Filing Jointly."
       },
       {
         "id": "v1-018",
-        "q": "What are the major topics covered specifically in Video 1?",
-        "a": "Forms 1040/1040-SR, information sources, filing requirements and deadlines, SSNs/TINs, tax residency, filing status, dependents, and Form 1040 checkboxes."
+        "q": "How do the ordinary filing thresholds generally relate to the standard deduction?",
+        "a": "Except for Married Filing Separately, the filing thresholds shown generally equal the applicable standard deduction amounts."
       },
       {
         "id": "v1-019",
-        "q": "What sources is the EA exam primarily based on?",
-        "a": "IRS publications, IRS forms, and form instructions."
+        "q": "How much extra time can the unused pre-April-15 period add to the 180-day combat-zone extension?",
+        "a": "Up to about an additional 3½ months."
       },
       {
         "id": "v1-020",
-        "q": "What does Tom call Publication 17?",
-        "a": "The “textbook” for Part 1 of the EA exam."
+        "q": "What is the purpose of the additional 'other' box near the top of the 2025 Form 1040?",
+        "a": "It is a box the IRS can use for another purpose if needed."
       },
       {
         "id": "v1-021",
-        "q": "What does Tom call Form 1040 and its instructions?",
-        "a": "The “workbook” for Part 1."
+        "q": "What credit-related information is newly shown for dependents on the 2025 Form 1040?",
+        "a": "Checkboxes indicating whether certain credits are being claimed for that dependent."
       },
       {
         "id": "v1-022",
-        "q": "What third resource does Tom particularly recommend for Video 1?",
-        "a": "Form 1040-NR and its instructions."
+        "q": "Under the special student closer-connection discussion, what must be true about the student's intent to remain in the U.S.?",
+        "a": "The student is temporarily present and does not intend to stay in the United States."
       },
       {
         "id": "v1-023",
@@ -126,12 +126,12 @@ const EA_DECKS = [
       },
       {
         "id": "v1-025",
-        "q": "What is the starting point in Tom's tax-return flowchart?",
+        "q": "What is the starting point in the tax-return flow?",
         "a": "Gross income."
       },
       {
         "id": "v1-026",
-        "q": "What does Tom mean by gross income at this point in the flowchart?",
+        "q": "At this point in the tax-return flow, what does gross income mean?",
         "a": "The taxpayer's income before subtracting adjustments and deductions."
       },
       {
@@ -146,8 +146,8 @@ const EA_DECKS = [
       },
       {
         "id": "v1-029",
-        "q": "Why does Tom emphasize AGI?",
-        "a": "Many provisions of the tax law refer back to AGI, making it an important checkpoint in the return."
+        "q": "Why is AGI an important checkpoint?",
+        "a": "Many provisions of the tax law refer back to AGI."
       },
       {
         "id": "v1-030",
@@ -186,12 +186,12 @@ const EA_DECKS = [
       },
       {
         "id": "v1-037",
-        "q": "Give an example of a tax payment Tom mentions.",
+        "q": "Give an example of a tax payment subtracted from total tax.",
         "a": "Federal income-tax withholding from a job."
       },
       {
         "id": "v1-038",
-        "q": "What other payment does Tom specifically mention?",
+        "q": "What other common tax payment is subtracted from total tax?",
         "a": "Estimated tax payments."
       },
       {
@@ -381,12 +381,12 @@ const EA_DECKS = [
       },
       {
         "id": "v1-076",
-        "q": "When Tom later says “Form 1040,” does the basic discussion also apply to Form 1040-SR?",
+        "q": "Does the basic Form 1040 discussion also apply to Form 1040-SR?",
         "a": "Yes; both produce the same tax result."
       },
       {
         "id": "v1-077",
-        "q": "What does Tom say is the best place to start when preparing the current year's return?",
+        "q": "What is a strong starting point when preparing the current-year return?",
         "a": "Obtain and review the prior-year tax return."
       },
       {
@@ -411,7 +411,7 @@ const EA_DECKS = [
       },
       {
         "id": "v1-082",
-        "q": "What item does Tom particularly mention as commonly changing?",
+        "q": "What basic taxpayer item commonly changes and should be reverified each year?",
         "a": "The taxpayer's address."
       },
       {
@@ -421,17 +421,17 @@ const EA_DECKS = [
       },
       {
         "id": "v1-084",
-        "q": "Name a carryover Tom says may be discovered from a prior return.",
+        "q": "Name one carryover that may be discovered from a prior-year return.",
         "a": "A net operating loss carryover."
       },
       {
         "id": "v1-085",
-        "q": "What other loss carryover does Tom mention in the 2026 video?",
-        "a": "Capital loss carryovers."
+        "q": "What other loss carryover may appear on a prior-year return?",
+        "a": "A capital loss carryover."
       },
       {
         "id": "v1-086",
-        "q": "What recurring tax item does Tom mention besides loss carryovers?",
+        "q": "What recurring tax item may need to carry forward from a prior year?",
         "a": "Depreciation."
       },
       {
@@ -496,7 +496,7 @@ const EA_DECKS = [
       },
       {
         "id": "v1-099",
-        "q": "What confidentiality concept does Tom mention regarding tax practitioners and clients?",
+        "q": "What confidentiality concept applies between tax practitioners and clients?",
         "a": "Tax practitioner/client confidentiality or privilege."
       },
       {
@@ -506,8 +506,8 @@ const EA_DECKS = [
       },
       {
         "id": "v1-101",
-        "q": "Does Tom say fraud or criminal conduct may create different rules from an ordinary mistake?",
-        "a": "Yes; those issues are addressed later in Part 3."
+        "q": "Can fraud or criminal conduct create different practitioner issues from an ordinary tax-return mistake?",
+        "a": "Yes."
       },
       {
         "id": "v1-102",
@@ -516,8 +516,8 @@ const EA_DECKS = [
       },
       {
         "id": "v1-103",
-        "q": "Does Tom consider the rule that the client decides whether to amend likely to be tested?",
-        "a": "Yes."
+        "q": "Under the special student closer-connection discussion, where must the student's tax home remain?",
+        "a": "In another country."
       },
       {
         "id": "v1-104",
@@ -551,7 +551,7 @@ const EA_DECKS = [
       },
       {
         "id": "v1-110",
-        "q": "What informal test does Tom use for suspicious client information?",
+        "q": "What informal test can a preparer use when client information seems suspicious or implausible?",
         "a": "The “smell test.”"
       },
       {
@@ -561,17 +561,17 @@ const EA_DECKS = [
       },
       {
         "id": "v1-112",
-        "q": "What professional standard does Tom say the IRS and courts effectively apply?",
+        "q": "What professional standard is used to evaluate what a preparer should do?",
         "a": "What a reasonable, well-informed tax preparer would do under the circumstances."
       },
       {
         "id": "v1-113",
-        "q": "In Tom's example, how much does the taxpayer earn from their job?",
+        "q": "In the due-diligence example, how much does the taxpayer earn from their job?",
         "a": "$50,000."
       },
       {
         "id": "v1-114",
-        "q": "In Tom's due-diligence example, what charitable contribution does the taxpayer claim?",
+        "q": "In the due-diligence example, what charitable contribution does the taxpayer claim?",
         "a": "$40,000."
       },
       {
@@ -586,7 +586,7 @@ const EA_DECKS = [
       },
       {
         "id": "v1-117",
-        "q": "If client information is reasonable and no rule requires proof, what does Tom say the preparer can generally do?",
+        "q": "If client information is reasonable and no rule requires proof, what may the preparer generally do?",
         "a": "Rely on the client's information."
       },
       {
@@ -607,7 +607,7 @@ const EA_DECKS = [
       {
         "id": "v1-121",
         "q": "Should the preparer ask about both taxable and nontaxable income?",
-        "a": "Yes. Tom says the preparer needs information about the taxpayer's worldwide taxable and nontaxable income."
+        "a": "Yes. The preparer needs information about the taxpayer's worldwide taxable and nontaxable income."
       },
       {
         "id": "v1-122",
@@ -676,7 +676,7 @@ const EA_DECKS = [
       },
       {
         "id": "v1-135",
-        "q": "What Form does Tom mention in connection with employer stock and basis?",
+        "q": "What form can be relevant to employer stock and basis?",
         "a": "Form 3922."
       },
       {
@@ -711,7 +711,7 @@ const EA_DECKS = [
       },
       {
         "id": "v1-142",
-        "q": "What does Tom recommend obtaining for a new walk-in client you do not know?",
+        "q": "What identification should generally be obtained from a new client the preparer does not know?",
         "a": "At least one form of official identification."
       },
       {
@@ -757,7 +757,7 @@ const EA_DECKS = [
       {
         "id": "v1-151",
         "q": "For filing-threshold purposes, does business gross income include business losses?",
-        "a": "Tom states gross income includes business gross income, not losses."
+        "a": "No. Gross business income is included; business losses are not included in gross income for this definition."
       },
       {
         "id": "v1-152",
@@ -771,7 +771,7 @@ const EA_DECKS = [
       },
       {
         "id": "v1-154",
-        "q": "What are the two broad types of gross income Tom introduces?",
+        "q": "What are the two broad types of gross income used in these filing rules?",
         "a": "Earned income and unearned income."
       },
       {
@@ -851,8 +851,8 @@ const EA_DECKS = [
       },
       {
         "id": "v1-170",
-        "q": "Why is the basic MFJ threshold exactly twice the single threshold?",
-        "a": "Because Tom notes that MFJ involves two people: $31,500 is exactly twice $15,750."
+        "q": "Why is the basic MFJ filing threshold exactly twice the Single threshold?",
+        "a": "$31,500 is exactly twice $15,750."
       },
       {
         "id": "v1-171",
@@ -866,8 +866,8 @@ const EA_DECKS = [
       },
       {
         "id": "v1-173",
-        "q": "What major exception does Tom note to that standard-deduction relationship?",
-        "a": "Married filing separately, where the filing threshold is only $5."
+        "q": "What major exception exists to the general relationship between filing thresholds and the standard deduction?",
+        "a": "Married Filing Separately, where the filing threshold is only $5."
       },
       {
         "id": "v1-174",
@@ -966,13 +966,13 @@ const EA_DECKS = [
       },
       {
         "id": "v1-193",
-        "q": "In Tom's Johnny example, Johnny is a single dependent with only $10,000 of job earnings. Must he file based on those facts?",
+        "q": "In the Johnny example, Johnny is a single dependent with only $10,000 of job earnings. Must he file based on those facts?",
         "a": "No. His earned income is below $15,750 and he has no unearned income."
       },
       {
         "id": "v1-194",
-        "q": "Which filing-threshold numbers does Tom recommend prioritizing for the exam?",
-        "a": "The common “most taxpayers” thresholds, while remaining generally familiar with the dependent rules."
+        "q": "What immigration-law condition is part of the special student closer-connection discussion?",
+        "a": "The student must be following the applicable U.S. immigration laws."
       },
       {
         "id": "v1-195",
@@ -1051,13 +1051,13 @@ const EA_DECKS = [
       },
       {
         "id": "v1-210",
-        "q": "What obscure foreign-income provision does Tom mention as another filing trigger?",
+        "q": "What obscure foreign-income provision can create a filing requirement?",
         "a": "Required income inclusions under IRC §965 involving deferred foreign income."
       },
       {
         "id": "v1-211",
-        "q": "Does Tom expect §965 to be a major Video 1 exam focus?",
-        "a": "No; he calls it obscure and says not to spend much time on it."
+        "q": "Does the old dependency exemption still exist?",
+        "a": "No. It used to provide a deduction for each dependent, but it no longer exists."
       },
       {
         "id": "v1-212",
@@ -1066,7 +1066,7 @@ const EA_DECKS = [
       },
       {
         "id": "v1-213",
-        "q": "What are Joey's 2025 income amounts in Tom's example?",
+        "q": "What are Joey's 2025 income amounts in the example?",
         "a": "$12,000 wages + $2,500 dividends + $1,000 interest = $15,500 gross income."
       },
       {
@@ -1091,7 +1091,7 @@ const EA_DECKS = [
       },
       {
         "id": "v1-218",
-        "q": "What other reason does Tom give for voluntarily filing below the normal threshold?",
+        "q": "What is another reason to file voluntarily below the normal filing threshold?",
         "a": "To claim tax credits that require a filed return, such as the Earned Income Credit."
       },
       {
@@ -1101,7 +1101,7 @@ const EA_DECKS = [
       },
       {
         "id": "v1-220",
-        "q": "What are Monica's income amounts in Tom's example?",
+        "q": "What are Monica's income amounts in the example?",
         "a": "$12,000 from a grass-cutting business + $2,500 dividends + $1,000 interest = $15,500."
       },
       {
@@ -1131,8 +1131,8 @@ const EA_DECKS = [
       },
       {
         "id": "v1-226",
-        "q": "Does the weekend/holiday rule apply only to the April 15 deadline?",
-        "a": "No. Tom says to apply it to tax-return due dates generally."
+        "q": "Does the weekend/holiday deadline rule apply only to April 15?",
+        "a": "No. It applies to tax-return due dates generally."
       },
       {
         "id": "v1-227",
@@ -1196,7 +1196,7 @@ const EA_DECKS = [
       },
       {
         "id": "v1-239",
-        "q": "Who can receive the special automatic two-month overseas filing extension Tom discusses?",
+        "q": "Who can receive the special automatic two-month overseas filing extension?",
         "a": "A U.S. citizen or resident living outside the United States whose main place of business or military post of duty is outside the United States."
       },
       {
@@ -1226,7 +1226,7 @@ const EA_DECKS = [
       },
       {
         "id": "v1-245",
-        "q": "What does Tom say practitioners often do for overseas clients who expect to owe?",
+        "q": "What do practitioners often do for overseas clients who expect to owe?",
         "a": "File Form 4868 by April 15 and send the estimated payment."
       },
       {
@@ -1291,7 +1291,7 @@ const EA_DECKS = [
       },
       {
         "id": "v1-258",
-        "q": "What civilian groups does Tom mention as potentially covered by combat-zone relief?",
+        "q": "What civilian groups may qualify for combat-zone relief?",
         "a": "Civilian support personnel, Red Cross personnel, and certain war correspondents."
       },
       {
@@ -1311,7 +1311,7 @@ const EA_DECKS = [
       },
       {
         "id": "v1-262",
-        "q": "When did Nick enter the combat zone in Tom's example?",
+        "q": "When did Nick enter the combat zone in the example?",
         "a": "January 31, 2025."
       },
       {
@@ -1331,7 +1331,7 @@ const EA_DECKS = [
       },
       {
         "id": "v1-266",
-        "q": "What is Nick's total extension in Tom's example?",
+        "q": "What is Nick's total extension in the example?",
         "a": "254 days after March 31, 2026."
       },
       {
@@ -1366,12 +1366,12 @@ const EA_DECKS = [
       },
       {
         "id": "v1-273",
-        "q": "If that $10,000 return is 4 months and 1 day late, how many months of penalty does Tom count?",
+        "q": "If a $10,000-balance return is 4 months and 1 day late, how many months of failure-to-file penalty count?",
         "a": "Five months."
       },
       {
         "id": "v1-274",
-        "q": "What penalty does that produce in Tom's $10,000 example?",
+        "q": "What failure-to-file penalty results in the $10,000 example after five counted months?",
         "a": "$2,500, the 25% maximum."
       },
       {
@@ -1391,13 +1391,13 @@ const EA_DECKS = [
       },
       {
         "id": "v1-278",
-        "q": "In Tom's $400 unpaid-tax example more than 60 days late, what is the minimum failure-to-file penalty?",
+        "q": "In the $400 unpaid-tax example more than 60 days late, what is the minimum failure-to-file penalty?",
         "a": "$400, because $400 is less than $525."
       },
       {
         "id": "v1-279",
         "q": "What happens if the taxpayer obtained an extension but misses the extended filing deadline?",
-        "a": "Tom explains that the failure-to-file penalty is then measured back from the original due date."
+        "a": "The failure-to-file penalty is measured back from the original due date."
       },
       {
         "id": "v1-280",
@@ -1426,8 +1426,8 @@ const EA_DECKS = [
       },
       {
         "id": "v1-285",
-        "q": "In Tom's example, the taxpayer pays $10,000 with the extension but ultimately owes $11,000. Does the 90% test work?",
-        "a": "Yes. $10,000 is more than 90% of $11,000."
+        "q": "If a taxpayer pays $10,000 with an extension but ultimately owes $11,000, is $10,000 more than 90% of $11,000?",
+        "a": "Yes."
       },
       {
         "id": "v1-286",
@@ -1471,7 +1471,7 @@ const EA_DECKS = [
       },
       {
         "id": "v1-294",
-        "q": "How often does Tom say IRS interest is compounded?",
+        "q": "How often is IRS interest compounded?",
         "a": "Daily."
       },
       {
@@ -1481,22 +1481,22 @@ const EA_DECKS = [
       },
       {
         "id": "v1-296",
-        "q": "What distinction should you remember for the exam about interest?",
+        "q": "What distinction matters between the IRS interest rate and compounding?",
         "a": "The rate is updated quarterly, but interest is compounded daily."
       },
       {
         "id": "v1-297",
-        "q": "When can interest sometimes be abated according to Tom?",
+        "q": "When can interest sometimes be abated?",
         "a": "In limited circumstances involving an IRS error or delay."
       },
       {
         "id": "v1-298",
-        "q": "Does Tom say interest abatement happens frequently?",
-        "a": "No; he describes it as relatively rare."
+        "q": "Is interest abatement common?",
+        "a": "No. It is relatively rare."
       },
       {
         "id": "v1-299",
-        "q": "What criminal conduct does Tom associate with the perjury/fraud rule?",
+        "q": "What criminal conduct is associated with the false-return/perjury rule?",
         "a": "Knowingly filing or helping file a false return or aiding fraud."
       },
       {
@@ -1506,18 +1506,18 @@ const EA_DECKS = [
       },
       {
         "id": "v1-301",
-        "q": "What maximum fine does Tom say can apply?",
+        "q": "What maximum fine can apply to the false-return offense discussed here?",
         "a": "$100,000."
       },
       {
         "id": "v1-302",
-        "q": "What maximum prison term does Tom emphasize?",
+        "q": "What maximum prison term can apply?",
         "a": "Up to 3 years."
       },
       {
         "id": "v1-303",
-        "q": "Can the fine and imprisonment both apply?",
-        "a": "Yes—Tom describes it as $100,000 and/or up to three years."
+        "q": "Can both the fine and imprisonment apply?",
+        "a": "Yes—$100,000 and/or up to three years."
       },
       {
         "id": "v1-304",
@@ -1531,13 +1531,13 @@ const EA_DECKS = [
       },
       {
         "id": "v1-306",
-        "q": "Does Tom expect this rule to appear on the EA exam?",
-        "a": "Yes—he strongly emphasizes that it will be tested."
+        "q": "What examples of digital assets are specifically discussed?",
+        "a": "Virtual currencies, NFTs, and Bitcoin."
       },
       {
         "id": "v1-307",
         "q": "What tax year do individual taxpayers use almost all the time?",
-        "a": "A calendar year, January 1 through December 31. Tom says this is true 99.99% of the time for individuals."
+        "a": "A calendar year, January 1 through December 31."
       },
       {
         "id": "v1-308",
@@ -1546,8 +1546,8 @@ const EA_DECKS = [
       },
       {
         "id": "v1-309",
-        "q": "Are non-calendar tax years theoretically possible for individuals?",
-        "a": "Yes, but Tom says they are extremely rare."
+        "q": "Are non-calendar tax years possible for individuals?",
+        "a": "Yes, but they are extremely rare."
       },
       {
         "id": "v1-310",
@@ -1566,8 +1566,8 @@ const EA_DECKS = [
       },
       {
         "id": "v1-313",
-        "q": "What other obscure new top-of-return box does Tom mention?",
-        "a": "A box relating to certain automatic extensions resulting from specified tax elections."
+        "q": "What obscure new top-of-return box relates to certain automatic extensions?",
+        "a": "A box used when specified tax elections create certain automatic extensions."
       },
       {
         "id": "v1-314",
@@ -1636,7 +1636,7 @@ const EA_DECKS = [
       },
       {
         "id": "v1-327",
-        "q": "What unusual exception does Tom mention for a dependent without an SSN?",
+        "q": "What unusual exception allows a dependent without an SSN to be claimed?",
         "a": "A baby who was born and died during the tax year may be claimed without an SSN."
       },
       {
@@ -1662,7 +1662,7 @@ const EA_DECKS = [
       {
         "id": "v1-332",
         "q": "Is an ITIN a general-purpose identification document?",
-        "a": "No. Tom emphasizes that it is issued for federal tax purposes."
+        "a": "No. It is issued for federal tax purposes."
       },
       {
         "id": "v1-333",
@@ -1681,18 +1681,18 @@ const EA_DECKS = [
       },
       {
         "id": "v1-336",
-        "q": "What does “alien” mean for U.S. federal tax purposes in Tom's lesson?",
+        "q": "What does “alien” mean for U.S. federal tax purposes?",
         "a": "A person who is not a U.S. citizen."
       },
       {
         "id": "v1-337",
-        "q": "What are the three tax-residency categories Tom teaches?",
+        "q": "What are the three alien tax-residency categories?",
         "a": "Resident alien, nonresident alien, and dual-status alien."
       },
       {
         "id": "v1-338",
-        "q": "What IRS publication does Tom recommend for alien taxation?",
-        "a": "Publication 519, *U.S. Tax Guide for Aliens*."
+        "q": "How is the new U.S.-main-home checkbox declaration made on the return?",
+        "a": "Under penalties of perjury."
       },
       {
         "id": "v1-339",
@@ -1796,7 +1796,7 @@ const EA_DECKS = [
       },
       {
         "id": "v1-359",
-        "q": "What visas does Tom associate with qualifying foreign-government officials?",
+        "q": "What visas are associated with qualifying foreign-government-related exempt individuals?",
         "a": "A or G visas."
       },
       {
@@ -1821,7 +1821,7 @@ const EA_DECKS = [
       },
       {
         "id": "v1-364",
-        "q": "What example does Tom give of the medical exception?",
+        "q": "Give an example of the medical-condition exception to substantial-presence day counting.",
         "a": "A visitor on vacation has an automobile accident and must remain hospitalized in the United States."
       },
       {
@@ -1841,7 +1841,7 @@ const EA_DECKS = [
       },
       {
         "id": "v1-368",
-        "q": "What does Tom give as evidence of a closer foreign connection?",
+        "q": "What facts can indicate a closer connection to a foreign country?",
         "a": "Residence, family, vehicle registration, and other life connections centered in the foreign country."
       },
       {
@@ -1851,7 +1851,7 @@ const EA_DECKS = [
       },
       {
         "id": "v1-370",
-        "q": "What immigration-related condition does Tom mention for the closer-connection exception?",
+        "q": "What immigration-related condition applies to the ordinary closer-connection exception?",
         "a": "The person must not have taken steps toward lawful permanent-resident status."
       },
       {
@@ -1861,13 +1861,13 @@ const EA_DECKS = [
       },
       {
         "id": "v1-372",
-        "q": "Does Tom describe a special version of the closer-connection rule for students?",
+        "q": "Is there a specialized closer-connection rule for certain students?",
         "a": "Yes."
       },
       {
         "id": "v1-373",
-        "q": "Can a qualifying foreign student potentially remain nonresident even after spending 183+ days physically in the U.S.?",
-        "a": "Yes, under the specialized rules Tom discusses when the student's foreign connection and temporary status are maintained."
+        "q": "Can a qualifying foreign student potentially remain nonresident after spending 183+ days physically in the U.S.?",
+        "a": "Yes, under the specialized student rules when the foreign connection and temporary status requirements are maintained."
       },
       {
         "id": "v1-374",
@@ -1902,12 +1902,12 @@ const EA_DECKS = [
       {
         "id": "v1-380",
         "q": "Can most nonresident aliens take the ordinary standard deduction?",
-        "a": "Generally no; Tom notes most use itemized deductions instead."
+        "a": "Generally no; most use itemized deductions instead."
       },
       {
         "id": "v1-381",
-        "q": "What income does Tom emphasize belongs on the nonresident return?",
-        "a": "U.S.-source/otherwise taxable U.S. income rather than worldwide income generally."
+        "q": "What income is generally reported by a nonresident alien rather than worldwide income?",
+        "a": "Applicable U.S.-source income and income connected with a U.S. trade or business."
       },
       {
         "id": "v1-382",
@@ -2026,8 +2026,8 @@ const EA_DECKS = [
       },
       {
         "id": "v1-405",
-        "q": "Does Tom say MFJ is usually more favorable for tax liability than MFS?",
-        "a": "Yes."
+        "q": "Is MFJ usually more favorable for tax liability than MFS?",
+        "a": "Generally yes."
       },
       {
         "id": "v1-406",
@@ -2041,8 +2041,8 @@ const EA_DECKS = [
       },
       {
         "id": "v1-408",
-        "q": "If a joint return was filed before April 15, can separate returns potentially replace it before the due date?",
-        "a": "Tom explains that the change can be made before the filing deadline; after the deadline, the normal MFJ-to-MFS change is barred."
+        "q": "If a joint return was filed before the filing deadline, can separate returns potentially replace it before that deadline?",
+        "a": "Yes. After the filing deadline, the normal MFJ-to-MFS change is barred."
       },
       {
         "id": "v1-409",
@@ -2071,7 +2071,7 @@ const EA_DECKS = [
       },
       {
         "id": "v1-414",
-        "q": "What amendment period does Tom say is usually available to change MFS to MFJ?",
+        "q": "What amendment period is generally available to change MFS to MFJ?",
         "a": "Generally three years from the original due date."
       },
       {
@@ -2141,8 +2141,8 @@ const EA_DECKS = [
       },
       {
         "id": "v1-428",
-        "q": "Must the taxpayer be able to claim that child as a dependent?",
-        "a": "Yes, subject to the special separated-parent exception Tom discusses."
+        "q": "Must the taxpayer generally be able to claim the child as a dependent for the considered-unmarried HOH rule?",
+        "a": "Yes, subject to the special separated-parent exception."
       },
       {
         "id": "v1-429",
@@ -2246,8 +2246,8 @@ const EA_DECKS = [
       },
       {
         "id": "v1-449",
-        "q": "If the taxpayer's child/grandchild is unmarried and otherwise meets the residence rules, must the child actually be claimed as a dependent to be an HOH qualifying person?",
-        "a": "Generally no; Tom explains an unmarried child can qualify even when the other parent claims the dependency benefit."
+        "q": "If the taxpayer's unmarried child or grandchild otherwise meets the HOH residence rules, must the child actually be claimed as a dependent to be an HOH qualifying person?",
+        "a": "Generally no; an unmarried child can qualify even when the other parent claims the dependency-related benefit."
       },
       {
         "id": "v1-450",
@@ -2256,7 +2256,7 @@ const EA_DECKS = [
       },
       {
         "id": "v1-451",
-        "q": "When will a child generally fail to be an HOH qualifying person under Tom's chart?",
+        "q": "When will a child generally fail to be an HOH qualifying person under the chart?",
         "a": "If the child is married and cannot be claimed as the taxpayer's dependent."
       },
       {
@@ -2271,13 +2271,13 @@ const EA_DECKS = [
       },
       {
         "id": "v1-454",
-        "q": "What does an “other qualifying relative” need for HOH purposes according to Tom's discussion?",
+        "q": "What does an “other qualifying relative” generally need for HOH purposes?",
         "a": "More-than-half-year residence, a qualifying relationship on the special list, and dependent status."
       },
       {
         "id": "v1-455",
         "q": "Does the title “relatives who don't have to live with you” mean an other relative used for HOH never needs to live with you?",
-        "a": "No. Tom warns not to be misled by the name of the list; HOH has its own residence requirement."
+        "a": "No. HOH has its own residence requirement."
       },
       {
         "id": "v1-456",
@@ -2326,7 +2326,7 @@ const EA_DECKS = [
       },
       {
         "id": "v1-465",
-        "q": "What dependent exceptions does Tom mention for QSS?",
+        "q": "What dependent exceptions are discussed for QSS?",
         "a": "QSS can still be possible if the child could not be claimed only because the child's gross income was $5,200 or more, the child filed a joint return, or the taxpayer could be claimed as a dependent by someone else."
       },
       {
@@ -2351,12 +2351,12 @@ const EA_DECKS = [
       },
       {
         "id": "v1-470",
-        "q": "In Tom's filing-status hierarchy, which statuses are at the top?",
-        "a": "Married Filing Jointly is first/best, followed by Qualifying Surviving Spouse. Tom says they are the same for most purposes, but MFJ is slightly better in a few cases."
+        "q": "Which filing statuses are at the top of the general filing-status hierarchy?",
+        "a": "Married Filing Jointly is first, followed by Qualifying Surviving Spouse; they are the same for most purposes, with MFJ slightly better in a few cases."
       },
       {
         "id": "v1-471",
-        "q": "What comes below MFJ/QSS in Tom's hierarchy?",
+        "q": "What comes below MFJ/QSS in the filing-status hierarchy?",
         "a": "Head of Household."
       },
       {
@@ -2366,22 +2366,22 @@ const EA_DECKS = [
       },
       {
         "id": "v1-473",
-        "q": "Which filing status does Tom place at the bottom from a general tax-treatment standpoint?",
+        "q": "Which filing status is generally at the bottom of that hierarchy?",
         "a": "Married Filing Separately."
       },
       {
         "id": "v1-474",
-        "q": "If someone qualifies for both QSS and HOH, which does Tom say to use?",
+        "q": "If someone qualifies for both QSS and HOH, which status should be used under this comparison?",
         "a": "QSS."
       },
       {
         "id": "v1-475",
-        "q": "If someone qualifies for both HOH and Single, which does Tom say to use?",
+        "q": "If someone qualifies for both HOH and Single, which status should be used under this comparison?",
         "a": "HOH."
       },
       {
         "id": "v1-476",
-        "q": "If someone qualifies for both HOH and MFS through the considered-unmarried rules, which does Tom say to use?",
+        "q": "If someone qualifies for both HOH and MFS through the considered-unmarried rules, which status should be used under this comparison?",
         "a": "HOH."
       },
       {
@@ -2411,8 +2411,8 @@ const EA_DECKS = [
       },
       {
         "id": "v1-482",
-        "q": "Can spouses simply prefer to keep finances separate?",
-        "a": "Yes; Tom notes that is their right."
+        "q": "Can spouses choose MFS simply because they prefer to keep finances separate?",
+        "a": "Yes."
       },
       {
         "id": "v1-483",
@@ -2432,7 +2432,7 @@ const EA_DECKS = [
       {
         "id": "v1-486",
         "q": "Can Carol use HOH even though David claims the children as dependents?",
-        "a": "Yes. Her unmarried children remain qualifying persons for her HOH status under the rules Tom explains."
+        "a": "Yes. Her unmarried children remain qualifying persons for her HOH status under the applicable rules."
       },
       {
         "id": "v1-487",
@@ -2441,7 +2441,7 @@ const EA_DECKS = [
       },
       {
         "id": "v1-488",
-        "q": "When did Eduardo's wife Maria die in Tom's example?",
+        "q": "When did Eduardo's wife Maria die in the example?",
         "a": "2024."
       },
       {
@@ -2456,7 +2456,7 @@ const EA_DECKS = [
       },
       {
         "id": "v1-491",
-        "q": "Why does Tom say HOH is not the filing status Eduardo should use?",
+        "q": "Why is HOH not the filing status Eduardo should use in the example?",
         "a": "Eduardo qualifies for the generally more favorable Qualifying Surviving Spouse status."
       },
       {
@@ -2466,7 +2466,7 @@ const EA_DECKS = [
       },
       {
         "id": "v1-493",
-        "q": "What is the tax-law definition of a dependent in Tom's lesson?",
+        "q": "What is the tax-law definition of a dependent?",
         "a": "A qualifying child or qualifying relative."
       },
       {
@@ -2491,7 +2491,7 @@ const EA_DECKS = [
       },
       {
         "id": "v1-498",
-        "q": "What refund-only exception does Tom discuss to the previous rule?",
+        "q": "What refund-only exception applies when the taxpayer can be claimed as someone else's dependent?",
         "a": "The restriction may not apply if the other taxpayer filed only to obtain a refund of withholding and otherwise was not required to file."
       },
       {
@@ -2591,13 +2591,13 @@ const EA_DECKS = [
       },
       {
         "id": "v1-518",
-        "q": "What adoption example does Tom give of an unrelated qualifying relative?",
+        "q": "What adoption example illustrates an unrelated qualifying relative?",
         "a": "A child whose adoption is not yet final but who lived with the taxpayer all year."
       },
       {
         "id": "v1-519",
-        "q": "What other unrelated-person example does Tom give?",
-        "a": "A neighbor/family friend takes in and supports a child whose parents cannot care for them."
+        "q": "What other unrelated-person example illustrates the qualifying-relative rule?",
+        "a": "A neighbor or family friend takes in and supports a child whose parents cannot care for them."
       },
       {
         "id": "v1-520",
@@ -2641,7 +2641,7 @@ const EA_DECKS = [
       },
       {
         "id": "v1-528",
-        "q": "Which in-laws does Tom specifically mention?",
+        "q": "Which in-laws are specifically included on the qualifying-relative relationship list?",
         "a": "Son-in-law, daughter-in-law, father-in-law, mother-in-law, brother-in-law, and sister-in-law."
       },
       {
@@ -2656,8 +2656,8 @@ const EA_DECKS = [
       },
       {
         "id": "v1-531",
-        "q": "What example does Tom give?",
-        "a": "Once someone is your mother-in-law, that qualifying relationship continues despite divorce or the spouse's death."
+        "q": "What happens to an in-law relationship for these dependent rules after divorce or death?",
+        "a": "It continues; for example, a mother-in-law remains a qualifying relationship for this purpose."
       },
       {
         "id": "v1-532",
@@ -2741,7 +2741,7 @@ const EA_DECKS = [
       },
       {
         "id": "v1-548",
-        "q": "Can George claim Mabel as a dependent in Tom's example?",
+        "q": "Can George claim Mabel as a dependent in the example?",
         "a": "Yes."
       },
       {
@@ -2806,12 +2806,12 @@ const EA_DECKS = [
       },
       {
         "id": "v1-561",
-        "q": "What common situation does Tom use to illustrate multiple support agreements?",
+        "q": "What common situation illustrates a multiple support agreement?",
         "a": "Adult children jointly supporting an elderly parent."
       },
       {
         "id": "v1-562",
-        "q": "Under the multiple-support rule Tom discusses, how much support must the person who claims the dependent personally provide?",
+        "q": "Under the multiple-support rule, how much support must the person who claims the dependent personally provide?",
         "a": "More than 10% of the person's total support."
       },
       {
@@ -2846,7 +2846,7 @@ const EA_DECKS = [
       },
       {
         "id": "v1-569",
-        "q": "What measurement does Tom emphasize for custody?",
+        "q": "What measurement is used to determine the custodial parent?",
         "a": "Overnights."
       },
       {
@@ -2876,13 +2876,13 @@ const EA_DECKS = [
       },
       {
         "id": "v1-575",
-        "q": "What special rule does Tom mention for qualifying pre-2009 divorce decrees?",
+        "q": "What special rule applies to qualifying pre-2009 divorce decrees?",
         "a": "Certain pages of the divorce decree may substitute for Form 8332 when the older decree meets the requirements."
       },
       {
         "id": "v1-576",
-        "q": "For post-2008/2009-and-later decrees, is the divorce decree alone generally enough?",
-        "a": "No. Tom says that for 2009-or-later divorce decrees, Form 8332 is required."
+        "q": "For a 2009-or-later divorce decree, is the divorce decree alone generally enough?",
+        "a": "No. Form 8332 is required."
       },
       {
         "id": "v1-577",
@@ -2966,12 +2966,12 @@ const EA_DECKS = [
       },
       {
         "id": "v1-593",
-        "q": "What 2025 Child Tax Credit amount does Tom use in his example?",
+        "q": "What 2025 Child Tax Credit amount is used in the example?",
         "a": "$2,200."
       },
       {
         "id": "v1-594",
-        "q": "What “game” does Tom's example illustrate?",
+        "q": "What strategy does the Child Tax Credit tiebreaker example illustrate?",
         "a": "A high-income parent tries to let grandparents claim the child so the grandparents obtain a $2,200 credit and effectively pass the benefit back to the parent."
       },
       {
@@ -3002,7 +3002,7 @@ const EA_DECKS = [
       {
         "id": "v1-600",
         "q": "Can the taxpayer or spouse on a joint return choose the $3 Presidential Election Campaign Fund designation?",
-        "a": "Yes. Tom says the taxpayer or spouse on a joint return can choose to direct $3 to the fund, and doing so does not change the tax or refund."
+        "a": "Yes. The $3 designation does not change the tax owed or the refund."
       },
       {
         "id": "v1-601",
@@ -3017,7 +3017,7 @@ const EA_DECKS = [
       {
         "id": "v1-603",
         "q": "If the client says they had no reportable digital-asset activity and the preparer has no reason to doubt them, must the preparer demand proof of a negative?",
-        "a": "Generally no; Tom says the preparer can rely on the reasonable statement and check No."
+        "a": "Generally no. The preparer can rely on the reasonable statement and check No."
       },
       {
         "id": "v1-604",
@@ -3026,7 +3026,7 @@ const EA_DECKS = [
       },
       {
         "id": "v1-605",
-        "q": "Why does Tom repeatedly connect the digital-asset box to perjury?",
+        "q": "Why is the digital-asset Yes/No answer especially important?",
         "a": "The taxpayer and preparer sign the return under penalties of perjury."
       },
       {
