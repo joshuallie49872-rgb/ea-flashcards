@@ -1,0 +1,119 @@
+name: Transcribe EA Video 2
+
+on:
+  push:
+    paths:
+      - '.github/workflows/transcribe-video2.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  transcribe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 330
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Install transcription tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg
+          python -m pip install --upgrade pip
+          python -m pip install yt-dlp faster-whisper
+
+      - name: Download Video 2 audio
+        run: |
+          yt-dlp -x --audio-format mp3 --audio-quality 64K \
+            -o 'video2.%(ext)s' \
+            'https://www.youtube.com/watch?v=CcpCNJl-RCA'
+          ls -lh video2.mp3
+
+      - name: Transcribe with Whisper
+        run: |
+          cat > transcribe.py <<'PY'
+          from faster_whisper import WhisperModel
+          import json
+
+          model = WhisperModel(
+              'small.en',
+              device='cpu',
+              compute_type='int8',
+              cpu_threads=4,
+              num_workers=1,
+          )
+
+          prompt = (
+              'Enrolled Agent exam preparation, 2025 federal individual income tax law. '
+              'IRS, Form 1040, Schedule 1, gross income, wages, fringe benefits, scholarships, '
+              'interest, dividends, unemployment compensation, alimony, cancellation of debt, '
+              'prizes, awards, gambling winnings, rental income, royalties, Social Security, '
+              'Schedule C, Schedule E, OBBBA, One Big Beautiful Bill Act.'
+          )
+
+          segments, info = model.transcribe(
+              'video2.mp3',
+              language='en',
+              beam_size=5,
+              best_of=5,
+              vad_filter=True,
+              vad_parameters=dict(min_silence_duration_ms=500),
+              initial_prompt=prompt,
+              condition_on_previous_text=True,
+              word_timestamps=False,
+          )
+
+          rows = []
+          text_lines = []
+          md_lines = ['# EA Part 1 — Video 2 Transcript', '']
+          for seg in segments:
+              text = seg.text.strip()
+              if not text:
+                  continue
+              row = {
+                  'start': round(seg.start, 3),
+                  'end': round(seg.end, 3),
+                  'text': text,
+              }
+              rows.append(row)
+              text_lines.append(text)
+              total = int(seg.start)
+              h, rem = divmod(total, 3600)
+              m, s = divmod(rem, 60)
+              stamp = f'{h}:{m:02d}:{s:02d}' if h else f'{m}:{s:02d}'
+              md_lines.append(f'**{stamp}**')
+              md_lines.append('')
+              md_lines.append(text)
+              md_lines.append('')
+
+          with open('video2_transcript.txt', 'w', encoding='utf-8') as f:
+              f.write('\n'.join(text_lines) + '\n')
+          with open('video2_transcript.md', 'w', encoding='utf-8') as f:
+              f.write('\n'.join(md_lines) + '\n')
+          with open('video2_segments.json', 'w', encoding='utf-8') as f:
+              json.dump({'language': info.language, 'duration': info.duration, 'segments': rows}, f, ensure_ascii=False, indent=2)
+
+          print(f'Transcribed {len(rows)} segments; duration={info.duration:.1f}s')
+          PY
+          python transcribe.py
+          wc -w video2_transcript.txt
+          ls -lh video2_transcript.* video2_segments.json
+
+      - name: Upload transcript artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ea-video2-transcript
+          path: |
+            video2_transcript.txt
+            video2_transcript.md
+            video2_segments.json
+          retention-days: 1
+          if-no-files-found: error
