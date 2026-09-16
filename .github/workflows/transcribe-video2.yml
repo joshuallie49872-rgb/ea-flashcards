@@ -3,6 +3,7 @@ name: Transcribe EA Video 2
 on:
   push:
     paths:
+      - 'transcribe-trigger.txt'
       - '.github/workflows/transcribe-video2.yml'
   workflow_dispatch:
 
