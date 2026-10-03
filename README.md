@@ -69,3 +69,20 @@ The lecture decks are kept as a separate recall tool. The new **Practice questio
 - performance is broken out by the six Part 1 content areas.
 
 The exam bank uses tax year 2025 rules for the 2026–2027 SEE cycle. The questions are original study questions, not copied proprietary course questions or live SEE questions.
+
+
+## Large A–D question bank
+
+The app now creates a large multiple-choice bank from the existing lecture material in addition to the hand-built exam-style bank.
+
+Current structure:
+- 2,438 lecture-derived A–D review questions
+- 100 hand-built exam-style A–D questions
+- 2,538 total Part 1 questions
+- ordered or randomized practice
+- filtering by Part 1 content area
+- separate 100-question / 3.5-hour mock exam mode
+
+The lecture-derived bank is intended for repetition and recall. Mock exams favor the hand-built questions and higher-priority core tax topics, while still drawing from the larger bank so repeated exams are less predictable.
+
+The real SEE uses scaled scoring. This app reports practice accuracy and should not be interpreted as an IRS scaled score.
