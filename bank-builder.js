@@ -39,7 +39,7 @@ const EA_CORE_KEYWORDS = [
 ];
 
 const EA_REJECT_PATTERNS = [
-  /\b(?:in|from) the (?:\w+ )?example\b/i,
+  /\bexample\b/i,
   /\bthat example\b/i,
   /\bthis example\b/i,
   /\bas discussed\b/i,
@@ -49,12 +49,12 @@ const EA_REJECT_PATTERNS = [
   /\bshown below\b/i,
   /\bat this point\b/i,
   /\bwhat happens next\b/i,
-  /\bthe chart\b/i,
-  /\bthe slide\b/i,
-  /\bthe lecture\b/i,
-  /\bthe video\b/i,
-  /\bthe instructor\b/i,
-  /\bthe speaker\b/i,
+  /\bchart\b/i,
+  /\bslide\b/i,
+  /\blecture\b/i,
+  /\bvideo\b/i,
+  /\binstructor\b/i,
+  /\bspeaker\b/i,
   /\bobscure\b/i,
   /\bdo you need to memorize\b/i,
   /\bwhat did .* say\b/i
@@ -177,86 +177,46 @@ function eaRewriteStem(question, answer, id) {
   let q = eaNormalize(question)
     .replace(/\bfor these rules\b/gi, "for federal income tax purposes")
     .replace(/\bunder the rules discussed\b/gi, "under federal tax rules")
-    .replace(/\bunder the rule discussed\b/gi, "under federal tax rules");
+    .replace(/\bunder the rule discussed\b/gi, "under federal tax rules")
+    .replace(/\bfor these filing rules\b/gi, "for federal filing purposes");
 
-  const style = eaHash(id) % 4;
   let m;
 
-  if ((m = q.match(/^What is (.+)\?$/i))) {
-    const subject = m[1];
-    if (/^(the |a |an )?2025\b/i.test(subject) || /\b(?:limit|threshold|amount|rate|maximum|minimum|deadline|period)\b/i.test(subject)) {
-      return q;
-    }
-    return [
-      `Which statement best describes ${subject}?`,
-      `For federal income tax purposes, which choice best defines ${subject}?`,
-      `Which choice correctly explains ${subject}?`,
-      `How is ${subject} best described for federal tax purposes?`
-    ][style];
+  // Convert common classification prompts into clean standalone stems.
+  if ((m = q.match(/^Is (.+?) earned or unearned income\?$/i))) {
+    return `How is ${m[1]} generally classified for federal income tax purposes?`;
   }
-
-  if ((m = q.match(/^What does (.+) mean\?$/i))) {
-    return [
-      `Which choice best defines ${m[1]}?`,
-      `For federal tax purposes, what is meant by ${m[1]}?`,
-      `Which statement correctly explains ${m[1]}?`,
-      `What is the best description of ${m[1]}?`
-    ][style];
+  if ((m = q.match(/^Are (.+?) earned or unearned income(?: in the year received)?\?$/i))) {
+    return `How are ${m[1]} generally classified for federal income tax purposes?`;
   }
-
-  if ((m = q.match(/^What does (.+) stand for\?$/i))) return q;
-
-  if ((m = q.match(/^Can (.+)\?$/i))) {
-    const body = m[1].replace(/^a taxpayer\b/i,"a taxpayer");
-    return [
-      `Which statement is correct regarding whether ${body}?`,
-      `Under federal tax rules, may ${body}?`,
-      `For federal income tax purposes, which choice correctly addresses whether ${body}?`,
-      `Which answer correctly states whether ${body}?`
-    ][style];
-  }
-
-  if ((m = q.match(/^Is (.+)\?$/i))) {
-    return [
-      `Which statement is correct regarding whether ${m[1]}?`,
-      `For federal tax purposes, is ${m[1]}?`,
-      `Which choice correctly describes whether ${m[1]}?`,
-      `Under federal tax rules, which statement about ${m[1]} is correct?`
-    ][style];
-  }
-
-  if ((m = q.match(/^Are (.+) earned or unearned income\?$/i))) {
+  if ((m = q.match(/^How are (.+?) classified for .*?\?$/i)) && /earned income/i.test(answer)) {
     return `How are ${m[1]} generally classified for federal income tax purposes?`;
   }
 
-  if ((m = q.match(/^Are (.+)\?$/i))) {
-    return [
-      `Which statement is correct regarding ${m[1]}?`,
-      `For federal tax purposes, which choice correctly describes ${m[1]}?`,
-      `How are ${m[1]} generally treated under federal tax rules?`,
-      `Which answer correctly addresses ${m[1]}?`
-    ][style];
+  // Definitions benefit from a one-best-answer format.
+  if ((m = q.match(/^What does (.+?) stand for\?$/i))) {
+    return `What does ${m[1]} stand for in federal tax terminology?`;
+  }
+  if ((m = q.match(/^What does (.+?) mean\?$/i))) {
+    return `Which choice best defines ${m[1]} for federal tax purposes?`;
+  }
+  if ((m = q.match(/^What is (.+?)\?$/i))) {
+    const subject = m[1];
+    if (!/\b(?:amount|limit|threshold|rate|maximum|minimum|deadline|period|age|percentage|purpose|starting point|result|basis after|taxable amount)\b/i.test(subject)) {
+      return `Which choice best describes ${subject} for federal tax purposes?`;
+    }
   }
 
-  if ((m = q.match(/^Why (.+)\?$/i))) {
-    const body = m[1];
-    return [
-      `Which statement best explains why ${body}?`,
-      `What is the best tax-law explanation for why ${body}?`,
-      `Which choice most accurately explains why ${body}?`,
-      `For federal tax purposes, what best explains why ${body}?`
-    ][style];
+  // Clean up form questions.
+  if (/^What form is used to /i.test(q)) {
+    return q.replace(/^What form is used to /i, "Which IRS form is generally used to ");
+  }
+  if (/^What form can be /i.test(q)) {
+    return q.replace(/^What form can be /i, "Which IRS form can be ");
   }
 
-  if (/^Where do /i.test(q)) return q.replace(/^Where do /i, "Where are ");
-  if (/^Where does /i.test(q)) return q.replace(/^Where does /i, "Where is ");
-
-  if (/^What form is used to /i.test(q)) return q.replace(/^What form is used to /i, "Which IRS form is generally used to ");
-  if (/^What form /i.test(q)) return q.replace(/^What form /i, "Which IRS form ");
-
-  if (/^Who generally /i.test(q)) return q.replace(/^Who generally /i, "Which taxpayer or person generally ");
-
-  // Amount/rate/timing/application questions are already close to SEE style.
+  // Preserve already-standalone direct questions. The real SEE uses direct
+  // questions as well as incomplete sentences and EXCEPT formats.
   return q;
 }
 
