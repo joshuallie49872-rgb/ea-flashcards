@@ -34,7 +34,7 @@
         <button id="openPracticeBtn" class="exam-entry-card">
           <div class="eyebrow">EA Part 1</div>
           <h3>Practice questions</h3>
-          <p>Realistic A–D questions with explanations after each answer.</p>
+          <p>2,500+ A–D questions. Study in order or random, with explanations after each answer.</p>
         </button>
         <button id="openMockBtn" class="exam-entry-card">
           <div class="eyebrow">EA Part 1</div>
@@ -56,6 +56,22 @@
       </header>
 
       <div class="setup-panel">
+        <div id="bankStat" class="bank-stat"></div>
+        <label>
+          Question bank
+          <select id="practicePool">
+            <option value="all" selected>All questions (2,500+)</option>
+            <option value="exam">Hand-built exam-style only</option>
+            <option value="lecture">Lecture-review questions only</option>
+          </select>
+        </label>
+        <label>
+          Order
+          <select id="practiceOrder">
+            <option value="random" selected>Random</option>
+            <option value="ordered">In order</option>
+          </select>
+        </label>
         <label>
           Questions
           <select id="practiceCount">
@@ -63,6 +79,7 @@
             <option value="20" selected>20 questions</option>
             <option value="50">50 questions</option>
             <option value="100">100 questions</option>
+            <option value="all">All available</option>
           </select>
         </label>
         <label>
@@ -77,7 +94,7 @@
             <option value="6">6 — Specialized Returns for Individuals</option>
           </select>
         </label>
-        <p class="muted">Questions are written to stand on their own when randomized. Pick A–D before the explanation appears.</p>
+        <p class="muted">The hand-built bank is the closest exam simulation. The larger lecture-review bank gives you thousands of A–D repetitions. Pick A–D before the explanation appears.</p>
         <button id="startPracticeBtn" class="primary-button full-button">Start practice</button>
       </div>
     </section>
@@ -98,7 +115,10 @@
       </div>
 
       <article class="exam-question-card">
-        <div class="card-kicker static-kicker">Question</div>
+        <div class="question-head">
+          <div class="card-kicker static-kicker">Question</div>
+          <span id="questionSource" class="source-badge">Exam-style</span>
+        </div>
         <div id="examQuestionText" class="exam-question-text"></div>
         <div id="examChoices" class="exam-choices"></div>
       </article>
@@ -213,6 +233,7 @@
 
   <script src="data/decks.js"></script>
   <script src="data/exam-bank.js"></script>
+  <script src="bank-builder.js"></script>
   <script src="app.js"></script>
   <script src="exam.js"></script>
 </body>
