@@ -57,7 +57,7 @@ function getPracticePool() {
   const domain = $("practiceDomain").value;
   let pool = source === "exam"
     ? EA_CURATED_BANK
-    : source === "lecture"
+    : source === "rewritten"
       ? EA_DERIVED_BANK
       : EA_FULL_BANK;
 
@@ -75,7 +75,7 @@ function openExamSetup() {
 function updateBankStats() {
   if (!$("bankStat")) return;
   $("bankStat").textContent =
-    `${EA_BANK_STATS.total.toLocaleString()} total A–D questions · ${EA_BANK_STATS.curated} hand-built exam-style · ${EA_BANK_STATS.lecture.toLocaleString()} lecture-review`;
+    `${EA_BANK_STATS.total.toLocaleString()} total A–D questions · ${EA_BANK_STATS.curated} hand-built exam-style · ${EA_BANK_STATS.rewritten.toLocaleString()} rewritten standalone`;
 }
 
 function startPractice() {
@@ -185,7 +185,7 @@ function renderExamQuestion() {
   renderQuestionTerms(q);
 
   const badge = $("questionSource");
-  badge.textContent = q.source === "curated" ? "Exam-style" : q.sourceLabel || "Lecture review";
+  badge.textContent = q.source === "curated" ? "Exam-style" : q.sourceLabel || "Rewritten bank";
   badge.className = "source-badge " + (q.source === "curated" ? "source-exam" : "source-review");
 
   const choices = $("examChoices");

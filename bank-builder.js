@@ -1,6 +1,5 @@
-// Builds a large A-D practice bank from the existing lecture decks.
-// Curated exam-style questions in data/exam-bank.js are kept separate and weighted
-// more heavily in mock exams. Lecture-derived questions are primarily for repetition.
+// Rebuilds the lecture material into standalone EA-style multiple-choice questions.
+// The original lecture cards are used only as source facts. They are not shown as flashcards.
 
 const EA_DOMAIN_NAMES = {
   1: "Preliminary Work & Taxpayer Data",
@@ -39,24 +38,47 @@ const EA_CORE_KEYWORDS = [
   "fbar","form 8938","injured spouse","innocent spouse"
 ];
 
-const EA_WEAK_CONTEXT_PATTERNS = [
-  /\bin the (?:\w+ )?example\b/i,
+const EA_REJECT_PATTERNS = [
+  /\bexample\b/i,
   /\bthat example\b/i,
   /\bthis example\b/i,
   /\bas discussed\b/i,
-  /\bin the discussion\b/i,
+  /\bdiscussion\b/i,
   /\bthe discussion\b/i,
   /\bshown above\b/i,
   /\bshown below\b/i,
   /\bat this point\b/i,
-  /\bwhat does this mean\b/i,
-  /\bwhy does that\b/i,
-  /\bwhy is that\b/i,
   /\bwhat happens next\b/i,
-  /\bthe chart\b/i,
-  /\bthe slide\b/i,
-  /\bthe lecture\b/i,
-  /\bthe video\b/i
+  /\bchart\b/i,
+  /\bslide\b/i,
+  /\blecture\b/i,
+  /\bvideo\b/i,
+  /\binstructor\b/i,
+  /\bspeaker\b/i,
+  /\bobscure\b/i,
+  /\bdo you need to memorize\b/i,
+  /\bwhat did .* say\b/i
+];
+
+const EA_ANSWER_FAMILIES = [
+  ["Earned income.","Unearned income.","Tax-exempt income.","Self-employment income."],
+  ["Unearned income.","Earned income.","Tax-exempt income.","Self-employment income."],
+  ["Adjusted gross income (AGI).","Gross income.","Taxable income.","Total tax."],
+  ["Taxable income.","Adjusted gross income (AGI).","Gross income.","Total tax."],
+  ["Gross income.","Adjusted gross income (AGI).","Taxable income.","Total payments."],
+  ["Married Filing Jointly.","Married Filing Separately.","Head of Household.","Single."],
+  ["Married Filing Separately.","Married Filing Jointly.","Head of Household.","Single."],
+  ["Head of Household.","Single.","Married Filing Separately.","Qualifying Surviving Spouse."],
+  ["Single.","Head of Household.","Married Filing Jointly.","Married Filing Separately."],
+  ["Long-term capital gain.","Short-term capital gain.","Ordinary income.","Tax-exempt income."],
+  ["Short-term capital gain.","Long-term capital gain.","Ordinary income.","Section 1231 gain."],
+  ["Capital asset.","Ordinary income property.","Section 1231 property.","Inventory."],
+  ["Form 1040-X.","Form 1040-NR.","Form 4868.","Form 2848."],
+  ["Form 1040-NR.","Form 1040-X.","Form 1040-SR.","Form 709."],
+  ["Schedule A.","Schedule C.","Schedule D.","Schedule E."],
+  ["Schedule C.","Schedule E.","Schedule F.","Schedule A."],
+  ["Schedule D.","Schedule C.","Schedule E.","Schedule SE."],
+  ["Schedule E.","Schedule C.","Schedule D.","Schedule F."]
 ];
 
 function eaHash(text) {
@@ -83,53 +105,19 @@ function eaSeededShuffle(items, seedText) {
 }
 
 function eaNormalize(text) {
-  return String(text || "").replace(/\s+/g, " ").trim();
+  return String(text || "").replace(/\s+/g, " ").replace(/\s+([?.!,;:])/g, "$1").trim();
 }
 
-function eaAnswerKind(answer) {
-  const a = eaNormalize(answer);
-  if (/^(yes|no)[\s,.!;:-]/i.test(a) || /^(yes|no)\.?$/i.test(a)) return "yesno";
-  if (/\$[\d,]+/.test(a)) return "money";
-  if (/\b\d+(?:\.\d+)?%\b/.test(a)) return "percent";
-  if (/\bform\s+\d|schedule\s+[a-z0-9]/i.test(a)) return "form";
-  if (/\b(?:day|days|month|months|year|years|age|under age|over age)\b/i.test(a) && /\d/.test(a)) return "time";
-  if (/^\d[\d,]*(?:\.\d+)?\.?$/.test(a)) return "number";
-  if (a.length <= 18) return "short";
-  if (a.length <= 70) return "medium";
-  return "long";
-}
-
-function eaExtractNumber(answer) {
-  const m = eaNormalize(answer).match(/\$?([\d,]+(?:\.\d+)?)/);
-  return m ? Number(m[1].replace(/,/g, "")) : null;
-}
-
-function eaFormatVariant(original, value) {
-  const a = eaNormalize(original);
-  if (/\$/.test(a)) return "$" + Math.round(value).toLocaleString("en-US") + ".";
-  if (/%/.test(a)) return String(Number(value.toFixed(2))).replace(/\.0+$/, "") + "%.";
-  if (/\bage\b/i.test(a)) return a.replace(/\d[\d,]*(?:\.\d+)?/, String(Math.round(value)));
-  return a.replace(/\d[\d,]*(?:\.\d+)?/, String(Number(value.toFixed(2))));
-}
-
-function eaNumericDistractors(answer) {
-  const n = eaExtractNumber(answer);
-  if (!Number.isFinite(n) || n === 0) return [];
-  const factors = n >= 1000 ? [0.5, 0.75, 1.25, 1.5] : [0.5, 0.8, 1.2, 1.5];
-  const vals = factors.map(f => eaFormatVariant(answer, n * f));
-  return [...new Set(vals)].filter(x => eaNormalize(x) !== eaNormalize(answer));
-}
-
-function eaGenericYesNoDistractors(answer) {
-  const yes = /^yes\b/i.test(eaNormalize(answer));
-  return yes
-    ? ["No.", "Only if the taxpayer itemizes deductions.", "Only if the IRS gives advance approval."]
-    : ["Yes.", "Yes, but only if the taxpayer itemizes deductions.", "Yes, but only when reported on Form 1099."];
+function eaTrimPeriod(text) {
+  return eaNormalize(text).replace(/[.]+$/, "");
 }
 
 function eaTokenSet(text) {
-  const stop = new Set(["the","a","an","and","or","of","to","in","for","is","are","be","can","what","how","when","does","do","with","on","as","if","from","by","taxpayer","tax","return","generally"]);
-  return new Set(eaNormalize(text).toLowerCase().replace(/[^a-z0-9$% -]/g," ").split(/\s+/).filter(w => w.length > 2 && !stop.has(w)));
+  const stop = new Set(["the","a","an","and","or","of","to","in","for","is","are","be","can","what","how","when","does","do","with","on","as","if","from","by","taxpayer","tax","return","generally","federal"]);
+  return new Set(
+    eaNormalize(text).toLowerCase().replace(/[^a-z0-9$% -]/g," ").split(/\s+/)
+      .filter(w => w.length > 2 && !stop.has(w))
+  );
 }
 
 function eaSimilarity(a, b) {
@@ -138,6 +126,20 @@ function eaSimilarity(a, b) {
   let hit = 0;
   A.forEach(x => { if (B.has(x)) hit++; });
   return hit / Math.max(A.size, B.size);
+}
+
+function eaAnswerKind(answer) {
+  const a = eaNormalize(answer);
+  if (/^(yes|no)\b/i.test(a)) return "yesno";
+  if (/^The greater of\b/i.test(a)) return "greater";
+  if (/\$[\d,]+/.test(a)) return "money";
+  if (/\b\d+(?:\.\d+)?%\b/.test(a)) return "percent";
+  if (/\b(?:Form|Schedule)\s+[A-Z0-9-]+/i.test(a)) return "form";
+  if (/\b(?:day|days|month|months|year|years|age)\b/i.test(a) && /\d/.test(a)) return "time";
+  if (/^\d[\d,]*(?:\.\d+)?\.?$/.test(a)) return "number";
+  if (a.length <= 22) return "short";
+  if (a.length <= 85) return "medium";
+  return "long";
 }
 
 function eaClassifyDomain(deck, card) {
@@ -153,56 +155,174 @@ function eaClassifyDomain(deck, card) {
 }
 
 function eaPriority(question, answer, curated = false) {
-  if (curated) return 6;
+  if (curated) return 8;
   const text = (question + " " + answer).toLowerCase();
-  let p = 1;
-  EA_CORE_KEYWORDS.forEach(k => { if (text.includes(k)) p += 0.55; });
-  if (/\b(2025|current year)\b/i.test(text)) p += 0.5;
-  if (/\b(form|schedule)\s+[0-9a-z-]+/i.test(text)) p += 0.35;
-  return Math.min(5, Math.max(1, p));
+  let p = 1.2;
+  EA_CORE_KEYWORDS.forEach(k => { if (text.includes(k)) p += 0.6; });
+  if (/\b2025\b/i.test(text)) p += 0.4;
+  if (/\b(?:form|schedule)\s+[0-9a-z-]+/i.test(text)) p += 0.35;
+  return Math.min(6, Math.max(1, p));
 }
 
-function eaExamSuitable(card) {
+function eaSourceUsable(card) {
   const q = eaNormalize(card.q);
   const a = eaNormalize(card.a);
   if (q.length < 24 || a.length < 2) return false;
-  if (EA_WEAK_CONTEXT_PATTERNS.some(re => re.test(q))) return false;
-  if (/^(why|where on|what line|what box|what is the purpose)/i.test(q)) return false;
-  if (/\b(obscure|new top-of-return box|the instructor|the speaker)\b/i.test(q)) return false;
+  if (EA_REJECT_PATTERNS.some(re => re.test(q))) return false;
+  if (/^(give examples|name examples|list all|repeat|recall)\b/i.test(q)) return false;
   return true;
 }
 
-function eaMakeChoices(deck, card, cardIndex) {
-  const correct = eaNormalize(card.a);
-  let distractors = [];
+function eaRewriteStem(question, answer, id) {
+  let q = eaNormalize(question)
+    .replace(/\bfor these rules\b/gi, "for federal income tax purposes")
+    .replace(/\bunder the rules discussed\b/gi, "under federal tax rules")
+    .replace(/\bunder the rule discussed\b/gi, "under federal tax rules")
+    .replace(/\bfor these filing rules\b/gi, "for federal filing purposes");
 
-  const kind = eaAnswerKind(correct);
-  if (kind === "yesno") distractors.push(...eaGenericYesNoDistractors(correct));
-  if (["money","percent","number","time"].includes(kind)) distractors.push(...eaNumericDistractors(correct));
+  let m;
 
-  const nearby = [];
-  for (let distance = 1; distance <= 28; distance++) {
-    for (const idx of [cardIndex - distance, cardIndex + distance]) {
-      if (idx < 0 || idx >= deck.cards.length) continue;
-      const candidate = deck.cards[idx];
-      const ans = eaNormalize(candidate.a);
-      if (!ans || ans === correct) continue;
-      const sameKind = eaAnswerKind(ans) === kind;
-      const sim = eaSimilarity(card.q + " " + correct, candidate.q + " " + ans);
-      nearby.push({ ans, score: (sameKind ? 2 : 0) + sim * 3 - distance / 100 });
+  // Convert common classification prompts into clean standalone stems.
+  if ((m = q.match(/^Is (.+?) earned or unearned income\?$/i))) {
+    return `How is ${m[1]} generally classified for federal income tax purposes?`;
+  }
+  if ((m = q.match(/^Are (.+?) earned or unearned income(?: in the year received)?\?$/i))) {
+    return `How are ${m[1]} generally classified for federal income tax purposes?`;
+  }
+  if ((m = q.match(/^How are (.+?) classified for .*?\?$/i)) && /earned income/i.test(answer)) {
+    return `How are ${m[1]} generally classified for federal income tax purposes?`;
+  }
+
+  // Definitions benefit from a one-best-answer format.
+  if ((m = q.match(/^What does (.+?) stand for\?$/i))) {
+    return `What does ${m[1]} stand for in federal tax terminology?`;
+  }
+  if ((m = q.match(/^What does (.+?) mean\?$/i))) {
+    return `Which choice best defines ${m[1]} for federal tax purposes?`;
+  }
+  if ((m = q.match(/^What is (.+?)\?$/i))) {
+    const subject = m[1];
+    if (!/\b(?:amount|limit|threshold|rate|maximum|minimum|deadline|period|age|percentage|purpose|starting point|result|basis after|taxable amount)\b/i.test(subject)) {
+      return `Which choice best describes ${subject} for federal tax purposes?`;
     }
   }
 
-  nearby.sort((a,b) => b.score - a.score);
-  distractors.push(...nearby.map(x => x.ans));
-
-  // If the nearby topic window is not enough, use same-kind answers from the deck.
-  if (distractors.length < 8) {
-    deck.cards.forEach(other => {
-      const ans = eaNormalize(other.a);
-      if (ans && ans !== correct && eaAnswerKind(ans) === kind) distractors.push(ans);
-    });
+  // Clean up form questions.
+  if (/^What form is used to /i.test(q)) {
+    return q.replace(/^What form is used to /i, "Which IRS form is generally used to ");
   }
+  if (/^What form can be /i.test(q)) {
+    return q.replace(/^What form can be /i, "Which IRS form can be ");
+  }
+
+  // Preserve already-standalone direct questions. The real SEE uses direct
+  // questions as well as incomplete sentences and EXCEPT formats.
+  return q;
+}
+
+function eaExtractNumber(answer) {
+  const m = eaNormalize(answer).match(/\$?([\d,]+(?:\.\d+)?)/);
+  return m ? Number(m[1].replace(/,/g, "")) : null;
+}
+
+function eaReplaceFirstNumber(original, value) {
+  const a = eaNormalize(original);
+  const rounded = Math.abs(value) >= 100 ? Math.round(value) : Number(value.toFixed(2));
+  const formatted = /\$/.test(a)
+    ? "$" + Number(rounded).toLocaleString("en-US")
+    : String(rounded);
+  return a.replace(/\$?[\d,]+(?:\.\d+)?/, formatted);
+}
+
+function eaRelatedNumericAnswers(deck, cardIndex, correct, kind) {
+  const out = [];
+  for (let distance = 1; distance <= 18; distance++) {
+    for (const idx of [cardIndex - distance, cardIndex + distance]) {
+      if (idx < 0 || idx >= deck.cards.length) continue;
+      const a = eaNormalize(deck.cards[idx].a);
+      if (!a || a.toLowerCase() === correct.toLowerCase()) continue;
+      if (eaAnswerKind(a) === kind) out.push(a);
+    }
+  }
+  return out;
+}
+
+function eaNumericDistractors(deck, cardIndex, correct, kind) {
+  const out = eaRelatedNumericAnswers(deck, cardIndex, correct, kind);
+  const n = eaExtractNumber(correct);
+  if (Number.isFinite(n) && n !== 0) {
+    const factors = Math.abs(n) >= 1000 ? [0.5, 0.75, 1.25, 1.5] : [0.5, 0.8, 1.2, 1.5];
+    factors.forEach(f => out.push(eaReplaceFirstNumber(correct, n * f)));
+  }
+  return out;
+}
+
+function eaGreaterOfDistractors(correct) {
+  const clean = eaTrimPeriod(correct);
+  const m = clean.match(/^The greater of (.+?) or (.+)$/i);
+  if (!m) return [];
+  const first = m[1], second = m[2];
+  return [
+    first + ".",
+    second + ".",
+    `The lesser of ${first} or ${second}.`
+  ];
+}
+
+function eaFamilyDistractors(correct) {
+  const lc = eaTrimPeriod(correct).toLowerCase();
+  for (const family of EA_ANSWER_FAMILIES) {
+    const idx = family.findIndex(x => eaTrimPeriod(x).toLowerCase() === lc);
+    if (idx >= 0) return family.filter((_,i) => i !== idx);
+  }
+  return [];
+}
+
+function eaYesNoDistractors(correct) {
+  const yes = /^yes\b/i.test(correct);
+  if (yes) {
+    return [
+      "No.",
+      "No, unless the taxpayer receives advance IRS approval.",
+      "Only if the taxpayer itemizes deductions."
+    ];
+  }
+  return [
+    "Yes.",
+    "Yes, if the taxpayer reports the item on the return.",
+    "Yes, but only when the taxpayer itemizes deductions."
+  ];
+}
+
+function eaNearbyDistractors(deck, cardIndex, card, kind) {
+  const candidates = [];
+  for (let distance = 1; distance <= 35; distance++) {
+    for (const idx of [cardIndex - distance, cardIndex + distance]) {
+      if (idx < 0 || idx >= deck.cards.length) continue;
+      const other = deck.cards[idx];
+      const ans = eaNormalize(other.a);
+      if (!ans || ans.toLowerCase() === eaNormalize(card.a).toLowerCase()) continue;
+      const sameKind = eaAnswerKind(ans) === kind;
+      const sim = eaSimilarity(card.q + " " + card.a, other.q + " " + other.a);
+      candidates.push({ans,score:(sameKind?3:0)+(sim*4)-(distance/100)});
+    }
+  }
+  candidates.sort((a,b)=>b.score-a.score);
+  return candidates.map(x=>x.ans);
+}
+
+function eaBuildChoices(deck, card, cardIndex, rewrittenQ) {
+  const correct = eaNormalize(card.a);
+  const kind = eaAnswerKind(correct);
+  let distractors = [];
+
+  if (kind === "greater") distractors.push(...eaGreaterOfDistractors(correct));
+  distractors.push(...eaFamilyDistractors(correct));
+  if (kind === "yesno") distractors.push(...eaYesNoDistractors(correct));
+  if (["money","percent","number","time"].includes(kind)) {
+    distractors.push(...eaNumericDistractors(deck, cardIndex, correct, kind));
+  }
+  distractors.push(...eaNearbyDistractors(deck, cardIndex, card, kind));
 
   const unique = [];
   const seen = new Set([correct.toLowerCase()]);
@@ -210,51 +330,70 @@ function eaMakeChoices(deck, card, cardIndex) {
     const clean = eaNormalize(d);
     const key = clean.toLowerCase();
     if (!clean || seen.has(key)) continue;
-    // Avoid distractors that are almost identical to the correct answer.
-    if (eaSimilarity(clean, correct) > 0.88) continue;
+    if (eaSimilarity(clean, correct) > 0.92) continue;
+    // Avoid a distractor that simply restates the entire question.
+    if (eaSimilarity(clean, rewrittenQ) > 0.86) continue;
     seen.add(key);
     unique.push(clean);
     if (unique.length === 3) break;
   }
 
-  const fallback = ["None of the above.", "Only when a special election is made.", "Only if specifically required by the IRS."];
+  const fallback = [
+    "None of these choices correctly states the federal tax rule.",
+    "The treatment depends only on whether the taxpayer itemizes deductions.",
+    "The item is disregarded for federal income tax purposes."
+  ];
   for (const d of fallback) {
     if (unique.length >= 3) break;
     if (!seen.has(d.toLowerCase())) unique.push(d);
   }
 
   const raw = [correct, ...unique.slice(0,3)];
-  const shuffled = eaSeededShuffle(raw, card.id + "::choices");
-  return {
-    choices: shuffled,
-    answer: shuffled.indexOf(correct)
-  };
+  const shuffled = eaSeededShuffle(raw, card.id + "::rewritten-choices");
+  return {choices:shuffled,answer:shuffled.indexOf(correct)};
 }
 
-function eaBuildDerivedBank() {
+function eaConceptKey(q, a) {
+  // Conservative duplicate detection: exact normalized idea, not merely the same answer.
+  return (eaNormalize(q).toLowerCase().replace(/[^a-z0-9]+/g," ") + "::" +
+          eaNormalize(a).toLowerCase().replace(/[^a-z0-9$%]+/g," ")).trim();
+}
+
+function eaBuildRewrittenBank() {
   const out = [];
+  const seenConcepts = new Set();
+
   EA_DECKS.forEach((deck, deckIndex) => {
     deck.cards.forEach((card, cardIndex) => {
-      const made = eaMakeChoices(deck, card, cardIndex);
+      if (!eaSourceUsable(card)) return;
+
+      const rewrittenQ = eaRewriteStem(card.q, card.a, card.id);
+      const key = eaConceptKey(rewrittenQ, card.a);
+      if (seenConcepts.has(key)) return;
+      seenConcepts.add(key);
+
+      const made = eaBuildChoices(deck, card, cardIndex, rewrittenQ);
       const domain = eaClassifyDomain(deck, card);
+
       out.push({
-        id: "review-" + card.id,
+        id: "rw-" + card.id,
         sourceId: card.id,
-        source: "lecture",
-        sourceLabel: "Video " + deck.video,
-        order: deckIndex * 10000 + cardIndex,
+        source: "rewritten",
+        sourceLabel: "Rewritten bank",
+        order: domain * 100000 + deckIndex * 10000 + cardIndex,
         domain,
-        topic: deck.title,
-        q: eaNormalize(card.q),
+        topic: EA_DOMAIN_NAMES[domain],
+        q: rewrittenQ,
         choices: made.choices,
         answer: made.answer,
         explanation: eaNormalize(card.a),
-        reference: "Lecture review · Video " + deck.video,
-        priority: eaPriority(card.q, card.a, false),
-        examEligible: eaExamSuitable(card)
+        reference: "EA Part 1 study rule · tax year 2025",
+        priority: eaPriority(rewrittenQ, card.a, false),
+        examEligible: true
       });
     });
   });
+
   return out;
 }
 
@@ -263,19 +402,22 @@ function eaBuildCuratedBank() {
     ...q,
     source: "curated",
     sourceLabel: "Exam-style",
-    order: 900000 + index,
+    order: q.domain * 100000 + 90000 + index,
     priority: eaPriority(q.q, q.explanation || q.choices[q.answer], true),
     examEligible: true
   }));
 }
 
-const EA_DERIVED_BANK = eaBuildDerivedBank();
+const EA_REWRITTEN_BANK = eaBuildRewrittenBank();
 const EA_CURATED_BANK = eaBuildCuratedBank();
-const EA_FULL_BANK = [...EA_DERIVED_BANK, ...EA_CURATED_BANK];
+
+// Compatibility alias used by existing practice controls.
+const EA_DERIVED_BANK = EA_REWRITTEN_BANK;
+const EA_FULL_BANK = [...EA_REWRITTEN_BANK, ...EA_CURATED_BANK];
 
 const EA_BANK_STATS = {
   total: EA_FULL_BANK.length,
-  lecture: EA_DERIVED_BANK.length,
+  rewritten: EA_REWRITTEN_BANK.length,
   curated: EA_CURATED_BANK.length,
   examEligible: EA_FULL_BANK.filter(q => q.examEligible).length
 };
