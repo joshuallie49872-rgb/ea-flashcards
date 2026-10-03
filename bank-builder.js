@@ -43,7 +43,7 @@ const EA_REJECT_PATTERNS = [
   /\bthat example\b/i,
   /\bthis example\b/i,
   /\bas discussed\b/i,
-  /\bin the discussion\b/i,
+  /\bdiscussion\b/i,
   /\bthe discussion\b/i,
   /\bshown above\b/i,
   /\bshown below\b/i,
