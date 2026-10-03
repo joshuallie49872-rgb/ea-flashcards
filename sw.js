@@ -1,5 +1,5 @@
-const CACHE = "ea-flashcards-v7";
-const ASSETS = ["./","./index.html","./styles.css","./app.js","./data/decks.js","./data/exam-bank.js","./exam.js","./manifest.webmanifest"];
+const CACHE = "ea-flashcards-v8";
+const ASSETS = ["./","./index.html","./styles.css","./app.js","./data/decks.js","./data/exam-bank.js","./bank-builder.js","./exam.js","./manifest.webmanifest"];
 
 self.addEventListener("install", event => {
   event.waitUntil(caches.open(CACHE).then(cache => cache.addAll(ASSETS)));
