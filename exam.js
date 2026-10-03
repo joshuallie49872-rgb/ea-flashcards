@@ -1,4 +1,4 @@
-const EXAM_PROGRESS_KEY = "eaExamProgressV1";
+const EXAM_PROGRESS_KEY = "eaExamProgressV2";
 const MOCK_SECONDS = 3.5 * 60 * 60;
 
 let examMode = "practice";
@@ -10,21 +10,9 @@ let examTimerId = null;
 let examSecondsLeft = MOCK_SECONDS;
 let examFinished = false;
 
-const DOMAIN_NAMES = {
-  1: "Preliminary Work & Taxpayer Data",
-  2: "Income & Assets",
-  3: "Deductions & Credits",
-  4: "Taxation",
-  5: "Advising the Individual Taxpayer",
-  6: "Specialized Returns for Individuals"
-};
-
 function loadExamProgress() {
-  try {
-    return JSON.parse(localStorage.getItem(EXAM_PROGRESS_KEY)) || {};
-  } catch {
-    return {};
-  }
+  try { return JSON.parse(localStorage.getItem(EXAM_PROGRESS_KEY)) || {}; }
+  catch { return {}; }
 }
 
 function saveExamProgress(data) {
@@ -53,27 +41,91 @@ function shuffleExam(items) {
   return arr;
 }
 
+function weightedShuffle(items) {
+  return items
+    .map(q => {
+      const weight = Math.max(0.25, Number(q.priority || 1));
+      const u = Math.max(0.000001, Math.random());
+      return { q, key: Math.pow(u, 1 / weight) };
+    })
+    .sort((a,b) => b.key - a.key)
+    .map(x => x.q);
+}
+
+function getPracticePool() {
+  const source = $("practicePool").value;
+  const domain = $("practiceDomain").value;
+  let pool = source === "exam"
+    ? EA_CURATED_BANK
+    : source === "lecture"
+      ? EA_DERIVED_BANK
+      : EA_FULL_BANK;
+
+  if (domain !== "all") pool = pool.filter(q => String(q.domain) === domain);
+  return pool;
+}
+
 function openExamSetup() {
   stopExamTimer();
   examFinished = false;
+  updateBankStats();
   showScreen("examSetupScreen");
 }
 
-function startPractice() {
-  const count = Number($("practiceCount").value);
-  const domain = $("practiceDomain").value;
-  let pool = domain === "all"
-    ? EA_EXAM_BANK
-    : EA_EXAM_BANK.filter(q => String(q.domain) === domain);
+function updateBankStats() {
+  if (!$("bankStat")) return;
+  $("bankStat").textContent =
+    `${EA_BANK_STATS.total.toLocaleString()} total A–D questions · ${EA_BANK_STATS.curated} hand-built exam-style · ${EA_BANK_STATS.lecture.toLocaleString()} lecture-review`;
+}
 
+function startPractice() {
+  const countRaw = $("practiceCount").value;
+  const order = $("practiceOrder").value;
+  let pool = getPracticePool();
+
+  if (order === "random") pool = shuffleExam(pool);
+  else pool = [...pool].sort((a,b) => (a.order || 0) - (b.order || 0));
+
+  const count = countRaw === "all" ? pool.length : Number(countRaw);
   examMode = "practice";
-  examQuestions = shuffleExam(pool).slice(0, Math.min(count, pool.length));
+  examQuestions = pool.slice(0, Math.min(count, pool.length));
   beginExamSession();
+}
+
+function sampleDomain(domain, count, usedIds) {
+  let pool = EA_FULL_BANK.filter(q =>
+    q.domain === domain &&
+    q.examEligible &&
+    !usedIds.has(q.id)
+  );
+
+  // Hand-written questions and high-priority core rules are intentionally favored.
+  pool = weightedShuffle(pool);
+  const chosen = pool.slice(0, Math.min(count, pool.length));
+  chosen.forEach(q => usedIds.add(q.id));
+  return chosen;
+}
+
+function buildMockExam() {
+  const counts = EA_EXAM_BLUEPRINT.bankCounts || [16,20,20,18,13,13];
+  const used = new Set();
+  let chosen = [];
+
+  counts.forEach((count, idx) => {
+    chosen.push(...sampleDomain(idx + 1, count, used));
+  });
+
+  if (chosen.length < 100) {
+    const fill = weightedShuffle(EA_FULL_BANK.filter(q => q.examEligible && !used.has(q.id)));
+    chosen.push(...fill.slice(0, 100 - chosen.length));
+  }
+
+  return shuffleExam(chosen.slice(0, 100));
 }
 
 function startMockExam() {
   examMode = "mock";
-  examQuestions = shuffleExam(EA_EXAM_BANK);
+  examQuestions = buildMockExam();
   beginExamSession();
   examSecondsLeft = MOCK_SECONDS;
   startExamTimer();
@@ -100,8 +152,12 @@ function renderExamQuestion() {
   if (!q) return;
 
   $("examPosition").textContent = `${examIndex + 1} / ${examQuestions.length}`;
-  $("examDomain").textContent = `Domain ${q.domain}: ${DOMAIN_NAMES[q.domain]}`;
+  $("examDomain").textContent = `Domain ${q.domain}: ${EA_DOMAIN_NAMES[q.domain]}`;
   $("examQuestionText").textContent = q.q;
+
+  const badge = $("questionSource");
+  badge.textContent = q.source === "curated" ? "Exam-style" : q.sourceLabel || "Lecture review";
+  badge.className = "source-badge " + (q.source === "curated" ? "source-exam" : "source-review");
 
   const choices = $("examChoices");
   choices.innerHTML = "";
@@ -127,9 +183,12 @@ function renderExamQuestion() {
   const feedback = $("examFeedback");
   const isAnsweredPractice = examMode === "practice" && examLocked[q.id];
   feedback.classList.toggle("hidden", !isAnsweredPractice);
+
   if (isAnsweredPractice) {
     const correct = examAnswers[q.id] === q.answer;
-    $("examFeedbackTitle").textContent = correct ? "Correct" : `Incorrect — correct answer: ${String.fromCharCode(65 + q.answer)}`;
+    $("examFeedbackTitle").textContent = correct
+      ? "Correct"
+      : `Incorrect — correct answer: ${String.fromCharCode(65 + q.answer)}`;
     $("examFeedbackText").textContent = q.explanation;
     $("examReference").textContent = q.reference ? `Reference: ${q.reference}` : "";
     feedback.classList.toggle("feedback-correct", correct);
@@ -223,10 +282,7 @@ function finishExam(timeExpired = false) {
   stopExamTimer();
 
   if (examMode === "mock") {
-    examQuestions.forEach(q => {
-      const selected = examAnswers[q.id];
-      recordExamAttempt(q.id, selected === q.answer);
-    });
+    examQuestions.forEach(q => recordExamAttempt(q.id, examAnswers[q.id] === q.answer));
   }
 
   renderExamResults(timeExpired);
@@ -244,7 +300,7 @@ function renderExamResults(timeExpired) {
   $("resultAnswered").textContent = `Answered ${answered} of ${total}`;
   $("resultNotice").textContent = timeExpired
     ? "Time expired. Unanswered questions were scored incorrect."
-    : "Practice accuracy only. The real SEE uses scaled scoring and includes 15 unscored experimental questions.";
+    : "This is practice accuracy, not the IRS scaled score. The real SEE includes experimental questions that are not identified.";
 
   const domainWrap = $("resultDomains");
   domainWrap.innerHTML = "";
@@ -254,7 +310,7 @@ function renderExamResults(timeExpired) {
     const row = document.createElement("div");
     row.className = "result-domain-row";
     row.innerHTML = `
-      <div><strong>Domain ${domain}</strong><span>${DOMAIN_NAMES[domain]}</span></div>
+      <div><strong>Domain ${domain}</strong><span>${EA_DOMAIN_NAMES[domain]}</span></div>
       <div>${right} / ${qs.length} · ${Math.round((right / qs.length) * 100)}%</div>
     `;
     domainWrap.appendChild(row);
@@ -264,6 +320,7 @@ function renderExamResults(timeExpired) {
   $("missedCount").textContent = missed.length ? `${missed.length} missed / unanswered` : "No missed questions";
   const missedWrap = $("missedQuestions");
   missedWrap.innerHTML = "";
+
   missed.forEach((q, n) => {
     const selected = examAnswers[q.id];
     const box = document.createElement("details");
@@ -292,7 +349,8 @@ $("openMockBtn").addEventListener("click", startMockExam);
 $("startPracticeBtn").addEventListener("click", startPractice);
 $("examSetupBackBtn").addEventListener("click", exitExamToDecks);
 $("examBackBtn").addEventListener("click", () => {
-  if (examMode === "mock" && Object.keys(examAnswers).length && !confirm("Leave this mock exam? Current answers will be discarded.")) return;
+  if (examMode === "mock" && Object.keys(examAnswers).length &&
+      !confirm("Leave this mock exam? Current answers will be discarded.")) return;
   exitExamToDecks();
 });
 $("examPrevBtn").addEventListener("click", () => moveExam(-1));
@@ -301,3 +359,5 @@ $("examFinishBtn").addEventListener("click", () => finishExam(false));
 $("resultsBackBtn").addEventListener("click", exitExamToDecks);
 $("newPracticeBtn").addEventListener("click", openExamSetup);
 $("newMockBtn").addEventListener("click", startMockExam);
+
+updateBankStats();
