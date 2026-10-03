@@ -148,3 +148,21 @@ select { width: 100%; min-height: 44px; border-radius: 12px; border: 1px solid v
 .source-badge { display: inline-flex; align-items: center; min-height: 28px; padding: 4px 9px; border-radius: 999px; font-size: .72rem; font-weight: 900; letter-spacing: .03em; border: 1px solid var(--border); }
 .source-exam { background: var(--success-bg); color: var(--success-text); }
 .source-review { background: var(--soft); color: var(--muted); }
+
+
+.home-options { margin-top: 6px; }
+.question-terms { margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--border); }
+.terms-label { color: var(--muted); font-size: .78rem; font-weight: 900; text-transform: uppercase; letter-spacing: .07em; margin-bottom: 8px; }
+.terms-list { display: grid; gap: 8px; }
+.term-item { border: 1px solid var(--border); border-radius: 12px; background: var(--soft); overflow: hidden; }
+.term-item summary { cursor: pointer; list-style: none; display: flex; align-items: baseline; gap: 8px; padding: 10px 12px; }
+.term-item summary::-webkit-details-marker { display: none; }
+.term-item summary::after { content: "＋"; margin-left: auto; color: var(--muted); font-weight: 800; }
+.term-item[open] summary::after { content: "−"; }
+.term-code { font-weight: 900; }
+.term-name { color: var(--muted); font-size: .86rem; }
+.term-meaning { padding: 0 12px 12px; color: var(--text); line-height: 1.45; font-size: .9rem; }
+
+@media (hover:hover) {
+  .term-item summary:hover { background: var(--panel); }
+}
