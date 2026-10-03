@@ -136,7 +136,7 @@ function beginExamSession() {
   examAnswers = {};
   examLocked = {};
   examFinished = false;
-  $("examModeLabel").textContent = examMode === "mock" ? "100-question mock exam" : "Practice questions";
+  $("examModeLabel").textContent = examMode === "mock" ? "100-question practice exam" : "Practice questions";
   $("examFinishBtn").classList.toggle("hidden", examMode !== "mock");
   $("examTimer").classList.toggle("hidden", examMode !== "mock");
   showScreen("examScreen");
@@ -147,6 +147,34 @@ function currentExamQuestion() {
   return examQuestions[examIndex];
 }
 
+function renderQuestionTerms(q) {
+  const wrap = $("questionTerms");
+  const list = $("questionTermsList");
+  if (!wrap || !list) return;
+
+  const combined = [q.q, ...(q.choices || [])].join(" ");
+  const terms = eaGlossaryTermsInText(combined);
+
+  if (!terms.length) {
+    wrap.classList.add("hidden");
+    list.innerHTML = "";
+    return;
+  }
+
+  list.innerHTML = "";
+  terms.forEach(term => {
+    const item = EA_GLOSSARY[term];
+    const details = document.createElement("details");
+    details.className = "term-item";
+    details.innerHTML = `
+      <summary><span class="term-code">${term}</span><span class="term-name">${item.name}</span></summary>
+      <div class="term-meaning">${item.meaning}</div>
+    `;
+    list.appendChild(details);
+  });
+  wrap.classList.remove("hidden");
+}
+
 function renderExamQuestion() {
   const q = currentExamQuestion();
   if (!q) return;
@@ -154,6 +182,7 @@ function renderExamQuestion() {
   $("examPosition").textContent = `${examIndex + 1} / ${examQuestions.length}`;
   $("examDomain").textContent = `Domain ${q.domain}: ${EA_DOMAIN_NAMES[q.domain]}`;
   $("examQuestionText").textContent = q.q;
+  renderQuestionTerms(q);
 
   const badge = $("questionSource");
   badge.textContent = q.source === "curated" ? "Exam-style" : q.sourceLabel || "Lecture review";
@@ -274,7 +303,7 @@ function finishExam(timeExpired = false) {
     const unanswered = examQuestions.filter(q => examAnswers[q.id] === undefined).length;
     const msg = unanswered
       ? `Finish exam with ${unanswered} unanswered question${unanswered === 1 ? "" : "s"}?`
-      : "Finish and score this mock exam?";
+      : "Finish and score this practice exam?";
     if (!confirm(msg)) return;
   }
 
@@ -295,7 +324,7 @@ function renderExamResults(timeExpired) {
   const correct = examQuestions.filter(q => examAnswers[q.id] === q.answer).length;
   const pct = total ? Math.round((correct / total) * 100) : 0;
 
-  $("resultMode").textContent = examMode === "mock" ? "Mock exam results" : "Practice results";
+  $("resultMode").textContent = examMode === "mock" ? "Practice exam results" : "Practice results";
   $("resultScore").textContent = `${correct} / ${total} (${pct}%)`;
   $("resultAnswered").textContent = `Answered ${answered} of ${total}`;
   $("resultNotice").textContent = timeExpired
@@ -340,7 +369,6 @@ function renderExamResults(timeExpired) {
 
 function exitExamToDecks() {
   stopExamTimer();
-  renderDecks();
   showScreen("deckScreen");
 }
 
@@ -350,7 +378,7 @@ $("startPracticeBtn").addEventListener("click", startPractice);
 $("examSetupBackBtn").addEventListener("click", exitExamToDecks);
 $("examBackBtn").addEventListener("click", () => {
   if (examMode === "mock" && Object.keys(examAnswers).length &&
-      !confirm("Leave this mock exam? Current answers will be discarded.")) return;
+      !confirm("Leave this practice exam? Current answers will be discarded.")) return;
   exitExamToDecks();
 });
 $("examPrevBtn").addEventListener("click", () => moveExam(-1));
