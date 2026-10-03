@@ -86,3 +86,19 @@ Current structure:
 The lecture-derived bank is intended for repetition and recall. Mock exams favor the hand-built questions and higher-priority core tax topics, while still drawing from the larger bank so repeated exams are less predictable.
 
 The real SEE uses scaled scoring. This app reports practice accuracy and should not be interpreted as an IRS scaled score.
+
+
+## Rewritten Part 1 bank
+
+The large practice bank has been rebuilt from the lecture source material rather than exposing the original flashcards as converted questions.
+
+Current design:
+- more than 2,200 rewritten standalone multiple-choice questions derived from useful lecture concepts;
+- 100 additional hand-built exam-style questions;
+- context-dependent lecture trivia and prompts referring to an example, discussion, slide, chart, speaker, or video are excluded;
+- each question has four answer choices and one keyed answer;
+- direct questions, definitions, thresholds, calculations, forms, classifications, and rule applications are kept as standalone testable concepts;
+- practice can run in order or random;
+- the 100-question timed practice exam samples by Part 1 domain and favors higher-priority material.
+
+The bank is original study material. It is not a reproduction of live SEE questions or proprietary paid-course question banks.
