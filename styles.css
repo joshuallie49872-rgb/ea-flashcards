@@ -140,3 +140,11 @@ select { width: 100%; min-height: 44px; border-radius: 12px; border: 1px solid v
   .choice-letter { width: 27px; height: 27px; }
   .result-domain-row { align-items: flex-start; }
 }
+
+
+.bank-stat { margin: 0 0 16px; padding: 12px 14px; border-radius: 14px; background: var(--soft); color: var(--muted); font-size: .86rem; line-height: 1.4; }
+.question-head { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-bottom: 12px; }
+.question-head .static-kicker { margin-bottom: 0; }
+.source-badge { display: inline-flex; align-items: center; min-height: 28px; padding: 4px 9px; border-radius: 999px; font-size: .72rem; font-weight: 900; letter-spacing: .03em; border: 1px solid var(--border); }
+.source-exam { background: var(--success-bg); color: var(--success-text); }
+.source-review { background: var(--soft); color: var(--muted); }
