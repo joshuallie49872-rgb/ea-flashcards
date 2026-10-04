@@ -408,7 +408,11 @@ function eaBuildCuratedBank() {
   }));
 }
 
-const EA_REWRITTEN_BANK = eaBuildRewrittenBank();
+// Keep the automatic rewriter available for development/comparison, but the
+// live study bank now uses only questions that were reviewed individually.
+const EA_REWRITTEN_BANK = typeof EA_AUDITED_BANK !== "undefined"
+  ? EA_AUDITED_BANK
+  : eaBuildRewrittenBank();
 const EA_CURATED_BANK = eaBuildCuratedBank();
 
 // Compatibility alias used by existing practice controls.
@@ -419,5 +423,6 @@ const EA_BANK_STATS = {
   total: EA_FULL_BANK.length,
   rewritten: EA_REWRITTEN_BANK.length,
   curated: EA_CURATED_BANK.length,
-  examEligible: EA_FULL_BANK.filter(q => q.examEligible).length
+  examEligible: EA_FULL_BANK.filter(q => q.examEligible).length,
+  sourceCardsReviewed: typeof EA_AUDIT_STATS !== "undefined" ? EA_AUDIT_STATS.sourceCardsReviewed : null
 };
